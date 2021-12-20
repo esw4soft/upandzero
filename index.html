@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html;" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0, target-densityDpi=low-dpi" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href="./style/vendor/swiper.min.css" />
+    <link rel="stylesheet" href="./style/vendor/mobanbus_mviedov2_st.css" />
+    <link rel="stylesheet" href="./style/vendor/mobanbus.min.css" />
+    <link rel="stylesheet" href="./style/vendor/index.css" />
+    <link rel="stylesheet" href="./style/vendor/myindex.css" />
+    <link rel="stylesheet" href="./style/index.css" />
+
+    <script src="./js/vendor/jquery-3.2.1.min.js"></script>
+    <script src="./js/vendor/swiper.min.js"></script>
+</head>
+
+<body>
+    <!-- header -->
+    <div class="bg-0">
+        <header class="mobanbus_header">
+            <h1 class="logogo">
+                <img src="https://storage.googleapis.com/arsys/2021/08/arindex_banner_01.png" alt="logo">
+            </h1>
+        </header>
+    </div>
+    <div class="container_all">
+        <!-- banner -->
+        <div class="swiper-container bannerFixed bannerswiper">
+            <div id="banner_list" class="swiper-wrapper" style="height: auto;">
+                <div class="swiper-slide video">
+                    <div>
+                        <img src="https://storage.googleapis.com/arsys/sysdemo/ads/20210830/314461360f18e0429999ce10b53d7059.jpeg"
+                            alt="banner">
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div>
+                        <img src="https://storage.googleapis.com/arsys/sysdemo/ads/20210830/1aa5bdd640c0964cdbc89022d3b57b7b.jpeg"
+                            alt="banner">
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div>
+                        <img src="https://storage.googleapis.com/arsys/sys/ads/20210803/022426b4b8734a7bf864cd919450839b.jpg"
+                            alt="banner">
+                    </div>
+                </div>
+
+            </div>
+            <div class="swiper-pagination paginationcss"></div>
+        </div>
+
+        <!-- 跑馬燈 -->
+        <div class="marquee-div main-list marqueeAlter">
+
+            <div class="marquee-logo">
+
+                <img src="https://storage.googleapis.com/arsys/2021/08/arindex_banner_01.png">
+
+            </div>
+
+            <div class="marquee-main swiper-container">
+
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide swiper-no-swiping overh overe">${data[0].marquee_text}</div>
+                    <div class="swiper-slide swiper-no-swiping overh overe">${data[1].marquee_text}</div>
+                    <div class="swiper-slide swiper-no-swiping overh overe">${data[2].marquee_text}</div>
+                    <div class="swiper-slide swiper-no-swiping overh overe">${data[3].marquee_text}</div>
+                    <div class="swiper-slide swiper-no-swiping overh overe">${data[4].marquee_text}</div>
+                    <div class="swiper-slide swiper-no-swiping overh overe">${data[5].marquee_text}</div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- icon content -->
+        <main class="mainContent">
+            <div class="arGamebox">
+                <!-- ar scan -->
+                <div class="entrance">
+                    <img class="arGame" src="https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png"
+                            alt="scanbtn">
+                </div>
+                <div class="arGameIcon">
+                    <div class="arGameIconbox">
+                        <img src="https://storage.cloud.google.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="icon">
+                    </div>
+                    
+                    <div>123</div>
+                </div>
+            </div>
+            <ul class="allIcon">
+                <li>
+                    <div class="allIconimg">
+                        <img src="https://storage.cloud.google.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="allicon">
+                    </div>
+                    
+                    <div>123</div>
+                </li>
+                <li>
+                    <div class="allIconimg">
+                        <img src="https://storage.cloud.google.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="allicon">
+                    </div>
+                    
+                    <div>123</div>
+                </li>
+                <li>
+                    <div class="allIconimg">
+                        <img src="https://storage.cloud.google.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="allicon">
+                    </div>
+                    
+                    <div>123</div>
+                </li>
+                <li>
+                    <div class="allIconimg">
+                        <img src="https://storage.cloud.google.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="allicon">
+                    </div>
+                    
+                    <div>123</div>
+                </li>
+                <li>
+                    <div class="allIconimg">
+                        <img src="https://storage.cloud.google.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="allicon">
+                    </div>
+                    
+                    <div>123</div>
+                </li>
+                <li>
+                    <div class="allIconimg">
+                        <img src="https://storage.cloud.google.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="allicon">
+                    </div>
+                    
+                    <div>123</div>
+                </li>
+
+            </ul>
+        </main>
+
+    </div>
+    <div class="box-newspage"></div>
+
+    <script>
+        
+
+        // // open MR
+        // $('#MR2').click(() => {
+        //     window.top.openmr();
+        //     // window.top.ARGuidedTourfunc();
+        // });
+
+        // // ar雲掃
+        // $(".arscan").click(function () {
+        //     window.top.arcloud();
+        // })
+
+        // banner swiper
+        var swiper = new Swiper('.bannerswiper', {
+            loop: true,
+            speed: 500,
+            autoplay: {
+                delay: 3000,
+                stopOnLastSlide: false,
+                disableOnInteraction: false,
+            },
+            observer: true,
+            pagination: {
+                el: '.swiper-pagination',
+                type: 'bullets',
+            },
+        });
+
+        // 跑馬燈 swiper
+        var marqueeSwiper = new Swiper('.marquee-main', {
+
+            direction: 'vertical',
+
+            autoHeight: true,
+
+            loop: true,
+
+            speed: 500,
+
+            autoplay: {
+
+                delay: 3000,
+
+                stopOnLastSlide: false,
+
+                disableOnInteraction: false,
+
+            },
+
+            observer: true,
+
+        });
+
+        // 使用箭頭函式時要注意this指向
+        // 各項按鈕
+        // $(".allbutton").click(function () {
+        //     window.top.openIframe($(this).data("url"));
+        // })
+
+        // // 關閉popup
+        // function closeParentPopup() {
+        //     var adp = window.localStorage.getItem("adp_index");
+        //     window.localStorage.setItem("adp_goshow", '');
+        //     var boxIframe = $(".box-newspage");
+        //     boxIframe.removeClass("box-newspage-open");
+        //     boxIframe.addClass("box-newspage-close");
+        //     boxIframe.empty();
+
+        //     // 先留著
+        //     var adp_array = JSON.parse(adp);
+        //     if (adp_array.length >= 4) {
+        //         adp_array.length = adp_array.length - 1;
+        //         window.localStorage.setItem("adp_index", JSON.stringify(adp_array));
+        //     } else {
+        //         window.localStorage.setItem("adp_index", '["index"]');
+        //     }
+        // }
+
+    </script>
+</body>
+
+</html>

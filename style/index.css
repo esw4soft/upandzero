@@ -1,0 +1,162 @@
+/* global */
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  overflow-y: scroll;
+}
+
+/* header bg */
+.bg-0 {
+  background: #c9445f !important;
+}
+
+/* header title */
+.logogo {
+  text-align: center;
+  font-size: 18px;
+  color: white;
+  width: 100px;
+  height: 50px;
+  margin: 0;
+}
+
+.logogo img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+/* header margin banner */
+.mobanbus_header {
+  height: 90px;
+  background: #A27A49;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+}
+
+.bannerFixed {
+  height: 64vw;
+}
+
+.bannerFixed #banner_list img {
+  height: 60vw;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.bannerFixed .paginationcss {
+  width: 100% !important;
+  background: #A27A49;
+  bottom: 0;
+}
+
+.bannerFixed .paginationcss .swiper-pagination-bullet {
+  background: white;
+  opacity: 1;
+}
+
+.bannerFixed .paginationcss .swiper-pagination-bullet-active {
+  background: #c9445f;
+}
+
+.marqueeAlter {
+  width: 100%;
+  height: 50px;
+  border-bottom: 5px solid white;
+  border-top: 5px solid white;
+  -webkit-box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.3);
+          box-shadow: 1px 1px 3px 1px rgba(0, 0, 0, 0.3);
+  margin-bottom: 10px;
+}
+
+.mainContent {
+  padding: 20px 30px;
+}
+
+.mainContent .arGamebox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 30px;
+}
+
+.mainContent .arGamebox .entrance {
+  width: 55%;
+}
+
+.mainContent .arGamebox .entrance img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.mainContent .arGamebox .arGameIcon {
+  width: 35%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.mainContent .arGamebox .arGameIcon img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.mainContent .allIcon {
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.mainContent .allIcon li {
+  list-style: none;
+  width: 30%;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.mainContent .allIcon li img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+/*# sourceMappingURL=index.css.map */
