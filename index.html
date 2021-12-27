@@ -82,66 +82,61 @@
         <!-- icon content -->
         <main class="mainContent">
             <div class="arGamebox">
-                <!-- ar scan -->
-                <div class="entrance">
-                    <img class="arGame" src="https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png"
-                            alt="scanbtn">
+              <!-- ar scan -->
+              <div class="entrance" onclick="arcloud();">
+                <img class="arGame" src="https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png" alt="scanbtn">
+              </div>
+              <div class="arGameIcon">
+                <div class="arGameIconbox" onclick="logincheck('./view/shang_fairy.html')">
+                  <img src="https://storage.googleapis.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="icon">
                 </div>
-                <div class="arGameIcon">
-                    <div class="arGameIconbox">
-                        <img src="https://storage.cloud.google.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="icon">
-                    </div>
-                    
-                    <div>123</div>
-                </div>
+                <div>8仙女</div>
+              </div>
             </div>
             <ul class="allIcon">
-                <li>
-                    <div class="allIconimg">
-                        <img src="https://storage.cloud.google.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="allicon">
-                    </div>
-                    
-                    <div>123</div>
-                </li>
-                <li>
-                    <div class="allIconimg">
-                        <img src="https://storage.cloud.google.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="allicon">
-                    </div>
-                    
-                    <div>123</div>
-                </li>
-                <li>
-                    <div class="allIconimg">
-                        <img src="https://storage.cloud.google.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="allicon">
-                    </div>
-                    
-                    <div>123</div>
-                </li>
-                <li>
-                    <div class="allIconimg">
-                        <img src="https://storage.cloud.google.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="allicon">
-                    </div>
-                    
-                    <div>123</div>
-                </li>
-                <li>
-                    <div class="allIconimg">
-                        <img src="https://storage.cloud.google.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="allicon">
-                    </div>
-                    
-                    <div>123</div>
-                </li>
-                <li>
-                    <div class="allIconimg">
-                        <img src="https://storage.cloud.google.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="allicon">
-                    </div>
-                    
-                    <div>123</div>
-                </li>
-
+              <li>
+                <div class="allIconimg" onclick="openIframe('./view/shang_arInstruct.html')">
+                  <img src="https://storage.googleapis.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="allicon">
+                </div>
+      
+                <div>AR遊戲說明</div>
+              </li>
+              <li>
+                <div class="allIconimg" onclick="logincheck('./view/shang_coupon.html')">
+                  <img src="https://storage.googleapis.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="allicon">
+                </div>
+                <div>優惠券</div>
+              </li>
+              <li>
+                <div class="allIconimg" onclick="openIframe('./view/shang_activity.html')">
+                  <img src="https://storage.googleapis.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="allicon">
+                </div>
+                <div>最新活動</div>
+              </li>
+              <li>
+                <div class="allIconimg" onclick="openIframe('./view/shang_menu.html')">
+                  <img src="https://storage.googleapis.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="allicon">
+                </div>
+      
+                <div>好飲菜單</div>
+              </li>
+              <li>
+                <div class="allIconimg" id="Near-img">
+                  <img src="https://storage.googleapis.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="allicon">
+                </div>
+      
+                <div>分店地圖</div>
+              </li>
+              <li>
+                <div class="allIconimg" id="login_">
+                  <img src="https://storage.googleapis.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="allicon">
+                </div>
+      
+                <div>會員專區</div>
+              </li>
+      
             </ul>
-        </main>
-
+          </main>
     </div>
     <div class="box-newspage"></div>
 

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html;" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0, target-densityDpi=low-dpi" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href="./include/css/swiper.min.css" />
+    <link rel="stylesheet" href="./include/css/mobanbus_mviedov2_st.css" />
+    <link rel="stylesheet" href="./include/css/mobanbus.min.css" />
+    <link rel="stylesheet" href="./include/css/index.css" />
+    <link rel="stylesheet" href="./include/css/myindex.css" />
+    <!-- <link rel="stylesheet" href="./include/css/gidot/gidot_page.css" /> -->
+
+    <script src="./include/js/jquery-3.2.1.min.js"></script>
+    <script src="./include/js/swiper.min.js"></script>
+    <style>
+        /* global */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: scroll;
+            background: #1D6364;
+        }
+
+        /* .mobanbus_header {
+            position: fixed;
+            
+        } */
+        .pro_title_vip {
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* container */
+        .containerbb {
+            padding: 0px 30px 15px 30px;
+            margin-top: 300px;
+        }
+
+        /* fairy */
+        .bannerfairy {
+            width: 100%;
+            background: url("./include/img/shang/shang_fairy01.png");
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            z-index: 100;
+            height: 126vw;
+        }
+
+        .paddingbox{
+            padding: 77px 20px 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .fairycount {
+            width: 27%;
+            height: 29.5%;
+            text-align: center;
+        }
+
+        .empty{
+            width: 100%;
+            height: 85%;
+        }
+
+        .fairycount p{
+            font-size: 16px;
+            color: white;
+        }
+
+        /* 最後兩個 */
+        .laststyle{
+            width: 80%;
+            height: 29.5%;
+            margin: 0 auto;
+            display: flex;
+        }
+        .laststyle>.fairycount{
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+        /* exchange */
+        .exchangezone {
+
+            margin-top: 10px;
+            border-radius: 20px;
+            background: #700f18;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .goods {
+            padding: 10px 10px 0;
+            width: 100%;
+        }
+
+        .goods img {
+            width: 100%;
+            object-fit: contain;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div>
+        <header class="mobanbus_header">
+            <div class="bus_nav">
+                <div class="codedaddy_vback">
+                    <a class="" onclick="window.parent.closeParentPopup();"><img
+                            src="./include/template/mobanbus_mviedov2/mviedov2_st/img/bt_inside_back.png" /></a>
+                </div>
+                <div class="pro_title_vip">仙女收集冊</div>
+            </div>
+        </header>
+    </div>
+
+    <div class="containerbb">
+        <!-- fairy -->
+        <div class="bannerfairy">
+            <!-- <img src="./include/img/shang/shang_fairy01.png"
+                alt="bannerfairy"> -->
+            <div class="paddingbox">
+                <div class="fairycount">
+                    <div class="empty"></div>
+                    <p>0位</p>
+                </div>
+                <div class="fairycount">
+                    <div class="empty"></div>
+                    <p>0位</p>
+                </div>
+                <div class="fairycount">
+                    <div class="empty"></div>
+                    <p>2位</p>
+                </div>
+                <div class="fairycount">
+                    <div class="empty"></div>
+                    <p>4位</p>
+                </div>
+                <div class="fairycount">
+                    <div class="empty"></div>
+                    <p>5位</p>
+                </div>
+                <div class="fairycount">
+                    <div class="empty"></div>
+                    <p>14位</p>
+                </div>
+                <div class="laststyle">
+                    <div class="fairycount">
+                        <div class="empty"></div>
+                        <p>15位</p>
+                    </div>
+                    <div class="fairycount">
+                        <div class="empty"></div>
+                        <p>19位</p>
+                    </div>
+                </div>
+
+
+            </div>
+            
+
+        </div>
+
+        <!-- exchange -->
+        <div class="exchangezone">
+            <div class="goods">
+                <img src="https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png" alt="goods">
+            </div>
+            <div class="goods">
+                <img src="https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png" alt="goods">
+            </div>
+            <div class="goods">
+                <img src="https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png" alt="goods">
+            </div>
+            <div class="goods">
+                <img src="https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png" alt="goods">
+            </div>
+            <div class="goods">
+                <img src="https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png" alt="goods">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="box-newspage"></div>
+
+    <script>
+
+        // 取得網址參數 or localstorage參數
+        let sid = getQueryString("sid");
+        let uname = window.localStorage.getItem("user_id")
+        let uid = window.localStorage.getItem("uid")
+
+
+        // 開新iframe
+        function openIframe(url) {
+            var iframeEle = $(
+                '<iframe  frameborder="0" width="100%" height="100%" scrolling="auto"></iframe>'
+            );
+            var theToday =
+                new Date().getFullYear().toString() +
+                (new Date().getMonth() + 1).toString() +
+                new Date().getDate().toString();
+            if (url.match(/\?{1}/)) {
+                url += "&u=" + theToday;
+            } else {
+                url += "?u=" + theToday;
+            }
+            iframeEle.attr("src", url);
+            var boxIframe = $(".box-newspage");
+            boxIframe.addClass("box-newspage-open");
+            boxIframe.removeClass("box-newspage-close");
+            boxIframe.append(iframeEle);
+        }
+
+        // 關閉iframe
+        window.closeParentPopup = function () {
+
+            var boxIframe = $(".box-newspage");
+            boxIframe.removeClass("box-newspage-open");
+            boxIframe.addClass("box-newspage-close");
+            boxIframe.empty();
+
+            var adp = window.localStorage.getItem("adp_index");
+            var adp_array = JSON.parse(adp);
+            adp_array.pop();
+
+            var temp_adp = JSON.stringify(adp_array);
+
+            window.localStorage.setItem("adp_index", temp_adp);
+        };
+
+        // 取得網址參數
+        function getQueryString(paramName) {
+            paramName = paramName
+                .replace(/[\[]/, "\\\[")
+                .replace(/[\]]/, "\\\]")
+                .toLowerCase();
+            var reg = "[\\?&]" + paramName + "=([^&#]*)";
+            var regex = new RegExp(reg);
+            var regResults = regex.exec(window.location.href.toLowerCase());
+            if (regResults == null) return "";
+            else return regResults[1];
+        }
+
+        function add_page() {
+            var adp = window.localStorage.getItem("adp_index");
+            var adp_array = JSON.parse(adp);
+            var temp_page_name = "shang_menu.html";
+
+            temp_pageof = parseInt(adp_array.indexOf(temp_page_name));
+
+            if (temp_pageof < 0) {
+                adp_array.push(temp_page_name);
+            } else {
+                if (adp_array.length != temp_pageof + 1) {
+                    openIframe("./view/" + adp_array[temp_pageof + 1]);
+                }
+            }
+            var temp_adp = JSON.stringify(adp_array);
+
+            window.localStorage.setItem("adp_index", temp_adp);
+        }
+
+        pushHistory();
+
+        window.addEventListener(
+            "popstate",
+            function (e) {
+                window.parent.closeParentPopup();
+                pushHistory();
+            },
+            false
+        );
+
+        function pushHistory() {
+            var state = {
+                title: "title",
+                url: "#",
+            };
+            window.history.pushState(state, "title", "#");
+        }
+    </script>
+
+</body>
+
+</html>

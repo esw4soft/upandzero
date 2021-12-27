@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html;" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0, target-densityDpi=low-dpi" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href="./include/css/swiper.min.css" />
+    <link rel="stylesheet" href="./include/css/mobanbus_mviedov2_st.css" />
+    <link rel="stylesheet" href="./include/css/mobanbus.min.css" />
+    <link rel="stylesheet" href="./include/css/index.css" />
+    <link rel="stylesheet" href="./include/css/myindex.css" />
+
+    <script src="./include/js/jquery-3.2.1.min.js"></script>
+    <script src="./include/js/swiper.min.js"></script>
+    <script src="./include/js/masonry.pkgd.js"></script>
+    <style>
+        body {
+            overflow: scroll;
+            background: #EDECEC;
+        }
+
+        .mobanbus_header {
+            position: fixed;
+            background: white;
+            /* box-shadow: 0px 1px 3px rgba(0,0,0, 0.4); */
+        }
+
+        .menunav{
+            margin: 60px 0 15px 0;
+            padding-left: 15px;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .navstyle{
+            padding: 2px 15px;
+            color: #986236;
+            border-radius: 20px;
+            border: 1px solid #986236;
+            margin-right: 10px;
+        }
+        .active{
+            color: white;
+            background: #986236;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div>
+        <header class="mobanbus_header">
+            <div class="bus_nav">
+                <div class="codedaddy_vback">
+                    <a class="" onclick="window.parent.closeParentPopup();"><img
+                            src="./include/template/mobanbus_mviedov2/mviedov2_st/img/bt_inside_back.png" /></a>
+                </div>
+                <div class="pro_title_vip">好飲菜單</div>
+            </div>
+        </header>
+    </div>
+
+    <div class="menunav">
+        <div class="navstyle north active">北部</div>
+        <div class="navstyle south">中南部</div>
+    </div>
+
+    <div class="northimg">
+        <!-- <img src="" alt="northimg"> -->
+        <div class="imgalter" style="height: 800px; background: #986236"></div>
+    </div>
+
+    <div class="southimg" style="display: none;">
+        <!-- <img src="" alt="southimg"> -->
+        <div class="imgalter" style="height: 800px; background: orange"></div>
+    </div>
+
+    <script>
+
+        $(document).ready(function () {
+            
+            $(".navstyle").on("click", function(){
+                $(this).addClass("active").siblings().removeClass("active");
+                let locname = $(this).html()
+                if(locname === "北部"){
+                    $(".northimg").show()
+                    $(".southimg").hide()
+                }else if(locname === "中南部"){
+                    $(".northimg").hide()
+                    $(".southimg").show()
+                }
+            })
+        })
+
+        // 開新iframe
+        function openIframe(url) {
+            var iframeEle = $(
+                '<iframe  frameborder="0" width="100%" height="100%" scrolling="auto"></iframe>'
+            );
+            var theToday =
+                new Date().getFullYear().toString() +
+                (new Date().getMonth() + 1).toString() +
+                new Date().getDate().toString();
+            if (url.match(/\?{1}/)) {
+                url += "&u=" + theToday;
+            } else {
+                url += "?u=" + theToday;
+            }
+            iframeEle.attr("src", url);
+            var boxIframe = $(".box-newspage");
+            boxIframe.addClass("box-newspage-open");
+            boxIframe.removeClass("box-newspage-close");
+            boxIframe.append(iframeEle);
+        }
+
+        // 關閉iframe
+        window.closeParentPopup = function () {
+
+            var boxIframe = $(".box-newspage");
+            boxIframe.removeClass("box-newspage-open");
+            boxIframe.addClass("box-newspage-close");
+            boxIframe.empty();
+
+            var adp = window.localStorage.getItem("adp_index");
+            var adp_array = JSON.parse(adp);
+            adp_array.pop();
+
+            var temp_adp = JSON.stringify(adp_array);
+
+            window.localStorage.setItem("adp_index", temp_adp);
+        };
+
+        // 取得網址參數
+        function getQueryString(paramName) {
+            paramName = paramName
+                .replace(/[\[]/, "\\\[")
+                .replace(/[\]]/, "\\\]")
+                .toLowerCase();
+            var reg = "[\\?&]" + paramName + "=([^&#]*)";
+            var regex = new RegExp(reg);
+            var regResults = regex.exec(window.location.href.toLowerCase());
+            if (regResults == null) return "";
+            else return regResults[1];
+        }
+    </script>
+
+</body>
+
+</html>

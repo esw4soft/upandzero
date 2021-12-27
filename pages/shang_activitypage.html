@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html;" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0, target-densityDpi=low-dpi" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href="./include/css/swiper.min.css" />
+    <link rel="stylesheet" href="./include/css/mobanbus_mviedov2_st.css" />
+    <link rel="stylesheet" href="./include/css/mobanbus.min.css" />
+    <link rel="stylesheet" href="./include/css/index.css" />
+    <link rel="stylesheet" href="./include/css/myindex.css" />
+    <link rel="stylesheet" href="./include/css/shang_css/activitypage.css" />
+
+    <script src="./include/js/jquery-3.2.1.min.js"></script>
+    <script src="./include/js/swiper.min.js"></script>
+</head>
+
+<body>
+    <div class="offset">
+        <div>
+            <header class="mobanbus_header">
+                <div class="bus_nav">
+                    <div class="codedaddy_vback">
+                        <a class="" onclick="window.parent.closeParentPopup();"><img
+                                src="./include/template/mobanbus_mviedov2/mviedov2_st/img/bt_inside_back.png" /></a>
+                    </div>
+                    <div class="pro_title_vip">最新活動</div>
+                </div>
+            </header>
+        </div>
+        <div class="box-newspage"></div>
+
+        <div class="containerzz">
+            <!-- banner -->
+            <div class="propaganda">
+                <!-- <img src="./include/img/AR_banner.png" alt="actimg"> -->
+            </div>
+            <div class="cardhead">
+                <!-- <p class="headTitle fontsize-2 fontweight-0 color-1">王著降臨天著降臨天空秀著降臨天空秀著降臨天空秀臨天空秀著降臨臨天空秀著降臨臨天空秀著降臨</p>
+                <p class="headDate fontsize-0">20210894</p> -->
+            </div>
+        </div>
+
+    </div>
+
+    <div class="message"></div>
+    <div id="mbg1" class="message_icon_bg">
+        <div class="message_icon" data-type="f">
+            <div class="message_text em12"></div>
+            <div class="message_mtext">(點擊螢幕關閉視窗)</div>
+        </div>
+    </div>
+
+    <script>
+        let uname = window.localStorage.getItem("user_id");
+        // 取得網址參數
+        let aid = getQueryString("aid");
+
+        // 活動內容api
+        $.post(
+            "./ajax_php/activity/StoreActivity2.php", {
+                activity_id: aid,
+            },
+            (data) => {
+                data = JSON.parse(data);
+                console.log(data);
+
+                // // img
+                $(".propaganda").append(`<img src="./include/img/lazy01.jpg" alt="actimg" class="lazy" data-src="${data.img2 || data.img}">`);
+
+                // 活動名稱
+                $(".cardhead").append(
+                    `<p class="headTitle fontsize-2 fontweight-0 color-1">${data.title}</p>
+                    <p class="headDate fontsize-0">${data.start_date}</p>
+                    <p class="contentintro fontsize-0">${data.introduce}</p>`
+                );
+                
+            }
+        ).then(() => {
+                // lazy loading
+                const watcher = new IntersectionObserver(onEnterView);
+                const lazyImages = document.querySelectorAll("img.lazy");
+                for (let image of lazyImages) {
+                    watcher.observe(image); // 開始監視
+                }
+
+                function onEnterView(entries, observer) {
+                    for (let entry of entries) {
+                        if (entry.isIntersecting) {
+                            // 監視目標進入畫面
+                            const img = entry.target;
+                            img.setAttribute("src", img.dataset.src); // 把值塞回 src
+                            img.removeAttribute("data-src");
+                            observer.unobserve(img); // 取消監視
+                        }
+                    }
+                }
+        });
+
+        // 關閉提示
+        $("#mbg1").click(function () {
+            $(".message").hide();
+            var type = $(".message_icon").data("type");
+            if (type == "t") {
+                $.ajax({
+                    url: "./ajax_php/delete_allbc.php", //存取Json的網址
+                    dataType: "html",
+                    success: function (data) {},
+                });
+                location.reload();
+            } else if (type == "f") {
+                $(".message_icon_bg").hide();
+                $(".message_text").html("");
+            }
+        });
+
+        // 取得網址參數
+        function getQueryString(paramName) {
+            paramName = paramName
+                .replace(/[\[]/, "\\\[")
+                .replace(/[\]]/, "\\\]")
+                .toLowerCase();
+            var reg = "[\\?&]" + paramName + "=([^&#]*)";
+            var regex = new RegExp(reg);
+            var regResults = regex.exec(window.location.href.toLowerCase());
+            if (regResults == null) return "";
+            else return regResults[1];
+        }
+
+        // 開心iframe
+        function openIframe(url) {
+            var iframeEle = $(
+                '<iframe  frameborder="0" width="100%" height="100%" scrolling="auto"></iframe>'
+            );
+            var theToday =
+                new Date().getFullYear().toString() +
+                (new Date().getMonth() + 1).toString() +
+                new Date().getDate().toString();
+            if (url.match(/\?{1}/)) {
+                url += "&u=" + theToday;
+            } else {
+                url += "?u=" + theToday;
+            }
+            iframeEle.attr("src", url);
+            var boxIframe = $(".box-newspage");
+            boxIframe.addClass("box-newspage-open");
+            boxIframe.removeClass("box-newspage-close");
+            boxIframe.append(iframeEle);
+        }
+
+        // 關iframe
+        window.closeParentPopup = function () {
+            var boxIframe = $(".box-newspage");
+            boxIframe.removeClass("box-newspage-open");
+            boxIframe.addClass("box-newspage-close");
+            boxIframe.empty();
+
+            var adp = window.localStorage.getItem("adp_index");
+            var adp_array = JSON.parse(adp);
+            adp_array.pop();
+
+            var temp_adp = JSON.stringify(adp_array);
+
+            window.localStorage.setItem("adp_index", temp_adp);
+        };
+
+        add_page();
+
+        // 存入adp_index紀錄
+        function add_page() {
+            var adp = window.localStorage.getItem("adp_index");
+            var adp_array = JSON.parse(adp);
+            var temp_page_name =
+                "shang_activitypage.html?aid=" + aid;
+            // console.log(adp_array)
+            temp_pageof = parseInt(adp_array.indexOf(temp_page_name));
+            // console.log(temp_pageof)
+            if (temp_pageof < 0) {
+                adp_array.push(temp_page_name);
+                // console.log(adp_array)
+            } else {
+                if (adp_array.length != temp_pageof + 1) {
+                    var iframeEle = $(
+                        '<iframe  frameborder="0" width="100%" height="100%" scrolling="auto"></iframe>'
+                    );
+                    var temp_page_src = adp_array[temp_pageof + 1];
+                    iframeEle.attr("src", temp_page_src.toString());
+                    var boxIframe = $(".box-newspage");
+                    $(".box-newspage").css("left", "0%");
+                    boxIframe.removeClass("box-newspage-close");
+
+                    boxIframe.append(iframeEle);
+                }
+            }
+            var temp_adp = JSON.stringify(adp_array);
+            // console.log(temp_adp)
+
+            window.localStorage.setItem("adp_index", temp_adp);
+        }
+
+        // 歷史頁面紀錄
+        pushHistory();
+        window.addEventListener(
+            "popstate",
+            function (e) {
+                window.parent.closeParentPopup();
+                pushHistory();
+            },
+            false
+        );
+
+        function pushHistory() {
+            var state = {
+                title: "title",
+                url: "#",
+            };
+            window.history.pushState(state, "title", "#");
+        }
+    </script>
+</body>
+
+</html>

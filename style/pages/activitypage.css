@@ -1,0 +1,86 @@
+/* global */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    overflow-y: scroll;
+}
+
+.mobanbus_header {
+    position: fixed;
+    background: white;
+    box-shadow: 0px 1px 2px rgb(0, 0, 0, 40%);
+}
+
+.color-0 {
+    color: #cc355a;
+}
+
+.color-1 {
+    color: black;
+}
+
+.fontsize-0 {
+    font-size: 13px;
+}
+
+.fontsize-1 {
+    font-size: 18px;
+}
+
+.fontsize-2 {
+    font-size: 25px;
+}
+
+.fontsize-3 {
+    font-size: 16px;
+}
+
+.fontsize-4 {
+    font-size: 14px;
+}
+
+.fontweight-0 {
+    font-weight: bold;
+}
+
+.mb-0 {
+    margin-bottom: 5px;
+}
+
+.m-0 {
+    margin: 5px;
+}
+
+.active {
+    background: #e0e0e0;
+}
+
+/* container */
+.containerzz{
+    padding: 15px;
+}
+
+.propaganda {
+    margin-top: 45px;
+    width: 100%;
+}
+
+.propaganda img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.headTitle{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.contentintro{
+    margin-top: 10px;
+}

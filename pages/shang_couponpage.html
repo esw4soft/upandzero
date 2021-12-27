@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html;" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0, target-densityDpi=low-dpi" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href="./include/css/swiper.min.css" />
+    <link rel="stylesheet" href="./include/css/mobanbus_mviedov2_st.css" />
+    <link rel="stylesheet" href="./include/css/mobanbus.min.css" />
+    <link rel="stylesheet" href="./include/css/index.css" />
+    <link rel="stylesheet" href="./include/css/myindex.css" />
+    <link rel="stylesheet" href="./include/css/shang_css/couponpage.css" />
+
+    <script src="./include/js/jquery-3.2.1.min.js"></script>
+    <script src="./include/js/swiper.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <!-- Mobanbus_cn header start -->
+        <header class="mobanbus_header">
+            <div class="bus_nav">
+                <div class="codedaddy_vback">
+                    <a class="" onclick="window.parent.closeParentPopup();"><img
+                            src="./include/template/mobanbus_mviedov2/mviedov2_st/img/bt_inside_back.png" /></a>
+                </div>
+                <div class="pro_title_vip">我的票券</div>
+            </div>
+        </header>
+    </div>
+
+    <div class="containercou">
+        <div class="cardtitle">
+            <!-- <div class="storename font-0">店家名稱</div>
+            <div class="couponname font-3">優惠名稱</div>
+            <div class="coupondate font-1">剩餘 30 天</div>
+            <div class="coupondate font-1">2021-09-24 ~ 2021-09-25</div>
+            <div class="coupontype font-2">折扣</div> -->
+        </div>
+        <div class="cardcntent">
+            <!-- <div class="couponimg">
+                <img src="https://storage.googleapis.com/arsys/2021/09/netred-banner01.jpg" alt="couponimg" />
+            </div>
+            <div class="coupontextTitle font-1">內容說明、注意事項</div>
+            <div class="coupontext font-0">
+                met consectetur adipisicing elit. Placeat ad sullam repudiandae
+                accusantium vel numquam voluptates laborum, quae quo quidem.
+            </div> -->
+        </div>
+        <div class="usebtn font-2">使用優惠券(店員操作)</div>
+    </div>
+
+
+    <div class="box-newspage"></div>
+
+    <!-- popup -->
+    <div class="confirmbg">
+        <div class="confirmCp">
+            <div class="confirmtitle font-3">是否使用優惠券?</div>
+            <div class="confirmtext font-1">點選「確認」使用優惠券，</div>
+            <div class="confirmtext font-1">點選後無法取消。</div>
+            <div class="confirmbtn">
+                <div class="cbtnstyle confirmc font-1">確定</div>
+                <div class="cbtnstyle cancelc font-1">取消</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- hint -->
+    <div class="message87"></div>
+    <div class="message_icon_bg87">
+        <div class="message_icon87" data-type="f">
+            <div class="message_text87 em12"></div>
+            <!-- <div class="message_mtext87">(點擊螢幕關閉視窗)</div> -->
+        </div>
+    </div>
+
+    <script>
+        // 帳戶
+        let uname = window.localStorage.getItem("uid")
+        
+        // 取得網址參數
+        let cpid = getQueryString("cpid");
+        let sid = getQueryString("sid")
+
+        // 計時器變數
+        let timeoutHandle;
+
+        $(document).ready(function () {
+            $.post("./ajax_php/coupon/StoreCoupon2.php",{
+                // account: uname,
+                coupon_id : cpid,
+            },(data)=>{
+                data = JSON.parse(data)
+                // console.log(data)
+
+                // 渲染內容
+                if(data.type2 === "1"){
+                    $(".cardtitle").append(
+                    `<div class="storename font-0">${data.store_name}</div>
+                    <div class="couponname font-3">${data.title}</div>
+                    <div class="coupondate font-1">剩餘 ${data.day}天</div>
+                    <div class="coupontype font-2">${data.type}</div>`
+                )
+                }else {
+                    $(".cardtitle").append(
+                    `<div class="storename font-0">${data.store_name}</div>
+                    <div class="couponname font-3">${data.title}</div>
+                    <div class="coupondate font-1">剩餘 ${data.day}天</div>h
+                    <div class="coupondate font-1">${data.start_date} ~ ${data.end_date}</div>
+                    <div class="coupontype font-2">${data.type}</div>`
+                )}
+
+                $(".cardcntent").append(
+                    `<div class="couponimg">
+                        <img src=${data.img} alt="couponimg" />
+                    </div>
+                    <div class="coupontextTitle font-1">內容說明、注意事項</div>
+                    <div class="coupontext font-0">
+                        ${data.introduce}
+                    </div>`
+                )
+            })
+            
+            // 使用優惠券按鈕
+            $(".usebtn").click(() => {
+                if($(".usebtn").html() == "使用優惠券(店員操作)" ){
+                    $(".confirmbg").show();
+                }
+            });
+
+            // 取消
+            $(".cancelc").click(() => {
+                $(".confirmbg").hide();
+            });
+
+            // 確認使用優惠券按鈕
+            $(".confirmc").click(() => {
+                // countdown(1);
+                $(".confirmbg").hide();
+                $.post("./ajax_php/coupon/StoreCoupon3.php",{
+                    user_id : uname,
+                    coupon_id : cpid,
+                    store_id : sid,
+                },(res)=>{
+                    res = JSON.parse(res)
+                    // console.log(res)
+                    // console.log(cpid)
+                    // alert(uname)
+                    if(res === "-1"){
+                        $(".message87").show();
+                        $(".message_icon_bg87").show();
+                        $(".message_icon_bg87 .message_icon87").data("type", "f");
+                        $(".message_icon_bg87 .message_icon87").css("background-image", 'url("./include/img/inform_yellow.png")');
+                        $(".message_icon_bg87 .message_text87").html("店家使用次數已達上限");
+                    }else{
+                        $(".message87").show();
+                        $(".message_icon_bg87").show();
+                        $(".message_icon_bg87 .message_icon87").data("type", "f");
+                        $(".message_icon_bg87 .message_icon87").css("background-image", 'url("./include/img/inform_yellow.png")');
+                        $(".message_icon_bg87 .message_text87").html(`使用成功,本日次數剩餘 ${res}次`);
+                        countdown(1);
+                    }
+                })
+            });
+            // add_page();
+        });
+        // 提示框
+        $('.message_icon_bg87').click(function () {
+        $('.message87').hide()
+        var type = $('.message_icon87').data('type');
+        if (type == 'f') {
+            $('.message_icon_bg87').hide()
+            $('.message_text87').html('')
+        }
+        $(".numerousBuyForm").hide();
+        })
+
+
+        // 計時器bad
+        //     let countmin = 1
+        //     let countsec = 60
+        //     let timer = null
+        //     timer = setInterval(() => {
+        //         if(countmin == 1 && countsec > 0){
+        //             if(countsec > 10){
+        //                 countsec = countsec - 1;
+        //             }else{
+        //                 countsec = "0" + (countsec - 1);
+        //             }
+
+        //             $(".timesec").html(countsec)
+        //             $(".timemin").html(countmin)
+        //         }
+        //         else if(countmin == 1 && countsec == 0){
+        //             countmin = 0
+        //             countsec = 60
+        //             countsec = countsec - 1;
+        //             $(".timesec").html(countsec)
+        //             $(".timemin").html(countmin)
+        //         }
+        //         else if(countmin == 0 && countsec > 0){
+        //             if(countsec > 10){
+        //                 countsec = countsec - 1;
+        //             }else{
+        //                 countsec = "0" + (countsec - 1);
+        //             }
+        //             $(".timesec").html(countsec)
+        //             $(".timemin").html(countmin)
+        //         }
+        //         else{
+        //             clearInterval(timer);
+        //         }
+        //     }, 1000);
+
+
+        // 計時器good
+        function countdown(minutes) {
+            let seconds = 10;
+            let mins = minutes;
+
+            function tick() {
+                let counter = document.querySelector(".usebtn");
+                // console.log(counter);
+                let current_minutes = mins - 1;
+                seconds--;
+                counter.innerHTML =
+                "使用期限到數 0" + 
+                    current_minutes.toString() +
+                    ":" +
+                    (seconds < 10 ? "0" : "") +
+                    String(seconds);
+                if (seconds > 0) {
+                    timeoutHandle = setTimeout(tick, 1000);
+                } else {
+                    if (mins > 1) {
+                        setTimeout(function () {
+                            countdown(mins - 1);
+                        }, 1000);
+                    }
+                }
+
+                if(mins == 1 && seconds == 0){
+                    counter.innerHTML = "已使用";
+                    counter.style.backgroundColor = "#989898";
+                }
+            }
+            tick();
+        }
+
+        // 取得網址參數
+        function getQueryString(paramName) {
+            paramName = paramName
+                .replace(/[\[]/, "\\\[")
+                .replace(/[\]]/, "\\\]")
+                .toLowerCase();
+            var reg = "[\\?&]" + paramName + "=([^&#]*)";
+            var regex = new RegExp(reg);
+            var regResults = regex.exec(window.location.href.toLowerCase());
+            if (regResults == null) return "";
+            else return regResults[1];
+        }
+
+        function add_page() {
+            var adp = window.localStorage.getItem("adp_index");
+            var adp_array = JSON.parse(adp);
+            var temp_page_name = "shang_couponpage.html?cpid=" + cpid + "&sid=" + sid;
+
+            temp_pageof = parseInt(adp_array.indexOf(temp_page_name));
+
+            if (temp_pageof < 0) {
+                adp_array.push(temp_page_name);
+            } else {
+                if (adp_array.length != temp_pageof + 1) {
+                    openIframe("./view/" + adp_array[temp_pageof + 1]);
+                }
+            }
+            var temp_adp = JSON.stringify(adp_array);
+
+            window.localStorage.setItem("adp_index", temp_adp);
+        }
+
+        pushHistory();
+
+        window.addEventListener(
+            "popstate",
+            function (e) {
+                window.parent.closeParentPopup();
+                pushHistory();
+            },
+            false
+        );
+
+        function pushHistory() {
+            var state = {
+                title: "title",
+                url: "#",
+            };
+            window.history.pushState(state, "title", "#");
+        }
+    </script>
+</body>
+
+</html>
