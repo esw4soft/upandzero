@@ -56,7 +56,7 @@
             height: 126vw;
         }
 
-        .paddingbox{
+        .paddingbox {
             padding: 77px 20px 0 20px;
             display: flex;
             flex-wrap: wrap;
@@ -70,24 +70,26 @@
             text-align: center;
         }
 
-        .empty{
+        .empty {
             width: 100%;
             height: 85%;
         }
 
-        .fairycount p{
+        .fairycount p {
             font-size: 16px;
-            color: white;
+            font-weight: bold;
+            color: #ECCCAC;
         }
 
         /* 最後兩個 */
-        .laststyle{
+        .laststyle {
             width: 80%;
             height: 29.5%;
             margin: 0 auto;
             display: flex;
         }
-        .laststyle>.fairycount{
+
+        .laststyle>.fairycount {
             width: 100%;
             height: 100%;
             text-align: center;
@@ -95,7 +97,6 @@
 
         /* exchange */
         .exchangezone {
-
             margin-top: 10px;
             border-radius: 20px;
             background: #700f18;
@@ -113,6 +114,20 @@
         .goods img {
             width: 100%;
             object-fit: contain;
+        }
+
+        .exchRule {
+            padding: 15px 40px 15px 40px;
+        }
+
+        .exchRule img {
+            width: 100%;
+            object-fit: contain;
+        }
+
+        footer {
+            padding: 0 40px 20px 40px;
+            text-align: center;
         }
     </style>
 
@@ -137,7 +152,7 @@
             <!-- <img src="./include/img/shang/shang_fairy01.png"
                 alt="bannerfairy"> -->
             <div class="paddingbox">
-                <div class="fairycount">
+                <!-- <div class="fairycount">
                     <div class="empty"></div>
                     <p>0位</p>
                 </div>
@@ -170,36 +185,50 @@
                         <div class="empty"></div>
                         <p>19位</p>
                     </div>
-                </div>
-
-
+                </div> -->
             </div>
-            
+
 
         </div>
 
         <!-- exchange -->
         <div class="exchangezone">
-            <div class="goods">
-                <img src="https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png" alt="goods">
+            <div class="goods goodcp" data-cp="47">
+                <img src="./include/img/shang/argame01.png" alt="goods">
             </div>
-            <div class="goods">
-                <img src="https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png" alt="goods">
+            <div class="goods goodcp" data-cp="46">
+                <img src="./include/img/shang/argame01.png" alt="goods">
             </div>
-            <div class="goods">
-                <img src="https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png" alt="goods">
+            <div class="goods goodcp" data-cp="45">
+                <img src="./include/img/shang/argame01.png" alt="goods">
             </div>
-            <div class="goods">
-                <img src="https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png" alt="goods">
+            <div class="goods goodcp" data-cp="44">
+                <img src="./include/img/shang/argame01.png" alt="goods">
             </div>
-            <div class="goods">
-                <img src="https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png" alt="goods">
+            <div class="goods goodcp" data-cp="43">
+                <img src="./include/img/shang/argame01.png" alt="goods">
+            </div>
+            <div class="goods goodcp" data-cp="42">
+                <img src="./include/img/shang/argame01.png" alt="goods">
+            </div>
+            <div class="exchRule">
+                <img src="./include/img/shang/argame01.png" alt="ruleimg">
             </div>
         </div>
-
     </div>
+    <footer>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Possimus natus est voluptatem nisi facilis
+        consectetur ex veniam aliquid sapiente magnam.</footer>
 
     <div class="box-newspage"></div>
+
+    <!-- popup -->
+    <div class="message87"></div>
+    <div class="message_icon_bg87">
+        <div class="message_icon87" data-type="login">
+            <div class="message_text87 em12"></div>
+            <!-- <div class="message_mtext87">(點擊螢幕關閉視窗)</div> -->
+        </div>
+    </div>
 
     <script>
 
@@ -208,6 +237,148 @@
         let uname = window.localStorage.getItem("user_id")
         let uid = window.localStorage.getItem("uid")
 
+        $(document).ready(function () {
+            // 仙女全部數量
+            let fairycount = null;
+
+            $.post("./ajax_php/shang_ajax/UserFairy.php", {
+                'user_id': uid,
+            }, (data) => {
+                data = JSON.parse(data)
+                console.log(data);
+
+                // 物件字串改數字
+                fairycount = { ...data[0] }
+                for (let fairynum in fairycount) {
+                    fairycount[fairynum] = Number(fairycount[fairynum])
+                }
+                // for(let [name,count] of Object.entries(fairycount)){
+                //     fairycount[name] = Number(count)
+                // }
+                // console.log(fairycount)
+
+                $(".paddingbox").append(
+                    `<div class="fairycount">
+                        <div class="empty"></div>
+                        <p>${data[0].one}位</p>
+                    </div>
+                    <div class="fairycount">
+                        <div class="empty"></div>
+                        <p>${data[0].two}位</p>
+                    </div>
+                    <div class="fairycount">
+                        <div class="empty"></div>
+                        <p>${data[0].three}位</p>
+                    </div>
+                    <div class="fairycount">
+                        <div class="empty"></div>
+                        <p>${data[0].four}位</p>
+                    </div>
+                    <div class="fairycount">
+                        <div class="empty"></div>
+                        <p>${data[0].five}位</p>
+                    </div>
+                    <div class="fairycount">
+                        <div class="empty"></div>
+                        <p>${data[0].six}位</p>
+                    </div>
+                    <div class="laststyle">
+                        <div class="fairycount">
+                            <div class="empty"></div>
+                            <p>${data[0].seven}位</p>
+                        </div>
+                        <div class="fairycount">
+                            <div class="empty"></div>
+                            <p>${data[0].eight}位</p>
+                        </div>
+                    </div>`
+                )
+            })
+
+            // 兌換優惠券
+            $(".goodcp").on("click", function () {
+                let cpid = $(this).data("cp")
+                couponpath(cpid);
+            })
+
+            // 兌換路徑
+            function couponpath(cpid) {
+                // console.log(fairycount)
+                // console.log(cpid)
+                const { one, two, three, four, five, six, seven, eight } = fairycount
+
+                switch (cpid) {
+                    case 42:
+                        if (one && two && three) {
+                            openIframe(`./shang_branch.html?cpid=${cpid}`)
+                        } else {
+                            fairylack()
+                        }
+                        break;
+
+                    case 43:
+                        if (one && two && three && four) {
+                            openIframe(`./shang_branch.html?cpid=${cpid}`)
+                        } else {
+                            fairylack()
+                        }
+                        break;
+
+                    case 44:
+                        if (one && two && three && four && five) {
+                            openIframe(`./shang_branch.html?cpid=${cpid}`)
+                        } else {
+                            fairylack()
+                        }
+                        break;
+
+                    case 45:
+                        if (one && two && three && four && five && six) {
+                            openIframe(`./shang_branch.html?cpid=${cpid}`)
+                        } else {
+                            fairylack()
+                        }
+                        break;
+
+                    case 46:
+                        if (one && two && three && four && five && six && seven) {
+                            openIframe(`./shang_branch.html?cpid=${cpid}`)
+                        } else {
+                            fairylack()
+                        }
+                        break;
+
+                    case 47:
+                        if (one && two && three && four && five && six && seven && eight) {
+                            openIframe(`./shang_branch.html?cpid=${cpid}`)
+                        } else {
+                            fairylack()
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            // 仙女不足提示
+            function fairylack() {
+                $(".message87").show();
+                $(".message_icon_bg87").show();
+                $(".message_icon_bg87 .message_icon87").data("type", "login");
+                $(".message_icon87").css("background-image", 'url("./include/img/inform_yellow.png")');
+                $(".message_icon_bg87 .message_text87").html("仙女數量不足");
+
+                $('.message_icon_bg87').click(function () {
+                    $('.message87').hide()
+                    var type = $('.message_icon87').data('type');
+                    if (type == 'login') {
+                        $('.message_icon_bg87').hide()
+                        $('.message_text87').html('')
+                    }
+                })
+            }
+        })
 
         // 開新iframe
         function openIframe(url) {

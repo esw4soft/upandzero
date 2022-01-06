@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html;" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0, target-densityDpi=low-dpi" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href="./include/css/swiper.min.css" />
+    <link rel="stylesheet" href="./include/css/mobanbus_mviedov2_st.css" />
+    <link rel="stylesheet" href="./include/css/mobanbus.min.css" />
+    <link rel="stylesheet" href="./include/css/index.css" />
+    <link rel="stylesheet" href="./include/css/myindex.css" />
+
+    <script src="./include/js/jquery-3.2.1.min.js"></script>
+    <script src="./include/js/swiper.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    <style>
+        :root {
+            --font-size-0: 14px;
+            --font-size-1: 16px;
+            --font-size-2: 18px;
+            --font-size-3: 22px;
+            --font-size-4: 26px;
+            --font-size-5: 24px;
+
+            --margin-bottom-0: 10px;
+            --margin-bottom-1: 15px;
+            --margin-bottom-2: 20px;
+            --margin-bottom-3: 25px;
+
+            --color-0: #ECCCAC;
+            --color-1: #DC000C;
+        }
+
+        .fz-0 {
+            font-size: var(--font-size-0);
+        }
+
+        .fz-1 {
+            font-size: var(--font-size-1);
+        }
+
+        .fz-2 {
+            font-size: var(--font-size-2);
+        }
+
+        .fz-3 {
+            font-size: var(--font-size-3);
+        }
+
+        .fz-4 {
+            font-size: var(--font-size-4);
+        }
+
+        .fz-5 {
+            font-size: var(--font-size-5);
+        }
+
+        .color-0 {
+            color: var(--color-0);
+        }
+
+        .color-1 {
+            color: var(--color-1);
+        }
+
+        .mb-2 {
+            margin-bottom: var(--margin-bottom-2);
+        }
+
+
+        /* global */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: scroll;
+        }
+
+        .mobanbus_header {
+            /* position: fixed; */
+            background: #906437;
+            height: 60px;
+        }
+
+        .codedaddy_vback {
+            bottom: -3px;
+        }
+
+        .pro_titlea {
+            text-align: center;
+            height: 60px;
+        }
+
+        .logobox {
+            width: 150px;
+            height: 45px;
+            margin: 0 auto;
+            padding-top: 15px;
+        }
+
+        .logobox img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .containerbb {
+            padding: 10px 10px 15px 10px;
+        }
+
+        .banner {
+            width: 100%;
+        }
+
+        .banner img {
+            width: 100%;
+            object-fit: contain;
+        }
+
+        /* select */
+        .selectzone h3 {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .selectbox {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .selectstyle {
+            padding: 8px 10px;
+            border: 1px solid #e0e0e0;
+            font-size: 14px;
+            background: white;
+        }
+
+        /* shop */
+        .shopbox {
+            padding: 20px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #B4B3B2;
+        }
+
+        .leftside h3 {
+            font-size: 22px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 5px;
+        }
+
+        .loc {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .locicon {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
+        }
+
+        .locicon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .rightside {
+            display: flex;
+            align-items: center;
+        }
+
+        .selectbtn {
+            padding: 4px 17px;
+            background: #ECCCAC;
+            border-radius: 20px;
+        }
+
+        .shopnone {
+            margin: 0 auto;
+        }
+
+        /* confirmbtn */
+        .confirmbg,
+        .confirmbgex,
+        .confirmbgeFail {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+
+        .confirmCp {
+            width: 70vw;
+            /* height: 50vw; */
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            /* font-weight: bold; */
+            color: black !important;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .cpimg {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            border: 1px solid #B4B3B2;
+        }
+
+        .cpimg img {
+            width: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .confirmtitle {
+            letter-spacing: 1px;
+        }
+
+        .confirmtitle .exctitle {
+            color: #B5272D;
+            font-weight: bold;
+        }
+
+        .fairyimg {
+            width: 100%;
+            max-height: 100px;
+            overflow: hidden;
+        }
+
+        .fairyimg img {
+            width: 100%;
+            object-fit: contain;
+        }
+
+        .confirmbtn {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .cbtnstyle {
+            padding: 8px;
+            border: 2px solid var(--color-0);
+            border-radius: 20px;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .confirmc,
+        .confirmcex {
+            margin-right: 10px;
+            background: var(--color-0);
+        }
+
+        .confirmCpex {
+            text-align: center;
+        }
+
+        .btnfailStyle {
+            width: 50%;
+            background: var(--color-0);
+            flex-grow: 0;
+            margin: 0 auto;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div>
+        <header class="mobanbus_header">
+            <div class="bus_nav">
+                <div class="codedaddy_vback">
+                    <a class="" onclick="window.parent.closeParentPopup();"><img
+                            src="./include/template/mobanbus_mviedov2/mviedov2_st/img/bt_inside_back.png" /></a>
+                </div>
+                <div class="pro_titlea">
+                    <div class="logobox">
+                        <img src="https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png" alt="logo">
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <!-- banner -->
+    <div class="banner">
+        <img src="https://storage.googleapis.com/arsys/sys/ads/20220104/0867302563dff64827bfc8a4e3de62f8.jpg"
+            alt="banner">
+    </div>
+
+    <div class="containerbb">
+        <!-- content -->
+        <div class="menucontent">
+            <div class="selectzone">
+                <h3>選擇分店</h3>
+                <div class="selectbox">
+
+                    <select class="selectstyle selectCity" style="width: 40%; margin-right: 30px;" name="City">
+                        <option value="" disabled selected>選擇縣市</option>
+                    </select>
+                    <select class="selectstyle selectTownship" style="width: 40%;" name="Township">
+                        <option value="" disabled selected>選擇地區</option>
+                    </select>
+                    <!-- <select class="selectShop" style="width: 25%;" name="state">
+                        <option value="AL">海電電</option>
+                        <option value="WY">安南店</option>
+                    </select> -->
+                </div>
+                <hr />
+            </div>
+
+            <div class="shopzone">
+                <div class="shopbox">
+                    <div class="leftside">
+                        <h3>上雨林台南海嗨店</h3>
+                        <div class="loc">
+                            <div class="locicon">
+                                <img src="https://storage.googleapis.com/arsys/2021/09/bt_user_service.png" alt="icon">
+                            </div>
+                            <div class="addr">台南市終須區海安路一段87號</div>
+                        </div>
+                    </div>
+
+                    <div class="rightside usebtn">
+                        <div class="selectbtn">
+                            選擇
+                        </div>
+                    </div>
+                </div>
+
+                <div class="shopbox">
+                    <div class="leftside">
+                        <h3>上雨林台南海嗨店</h3>
+                        <div class="loc">
+                            <div class="locicon">
+                                <img src="https://storage.googleapis.com/arsys/2021/09/bt_user_service.png" alt="icon">
+                            </div>
+                            <div class="addr">台南市終須區海安路一段87號</div>
+                        </div>
+                    </div>
+
+                    <div class="rightside">
+                        <div class="selectbtn">
+                            選擇
+                        </div>
+                    </div>
+                </div>
+
+                <div class="shopbox">
+                    <div class="leftside">
+                        <h3>上雨林台南海嗨店</h3>
+                        <div class="loc">
+                            <div class="locicon">
+                                <img src="https://storage.googleapis.com/arsys/2021/09/bt_user_service.png" alt="icon">
+                            </div>
+                            <div class="addr">台南市終須區海安路一段87號</div>
+                        </div>
+                    </div>
+
+                    <div class="rightside">
+                        <div class="selectbtn2" onclick="openIframe('shang_iform.html')">
+                            選擇
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- popup -->
+    <div class="confirmbg animate__animated animate__fadeIn">
+        <div class="confirmCp">
+            <div class="cpimg">
+                <img src="https://storage.googleapis.com/arsys/sysdemo/MerchantImg/store_coupon/20211013/27132681d3f22649da88da7fd8ddd01f.jpg"
+                    alt="cpimg">
+            </div>
+            <div class="confirmtitle fz-2 mb-2">是否要使用下列仙女兌換 : <span class="exctitle">- -</span></div>
+            <div class="confirmtext fz-0 color-1">本次兌換需消耗 : </div>
+            <div class="fairyimg">
+                <img src="./include/img/shang_menubg01.png" alt="fairyimg">
+            </div>
+            <div class="confirmbtn">
+                <div class="cbtnstyle confirmc fz-1">確定</div>
+                <div class="cbtnstyle cancelc fz-1">取消</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="confirmbgex">
+        <div class="confirmCp confirmCpex">
+            <div class="confirmtitle fz-2">兌換完成</div>
+            <div class="confirmtext fz-1">請至我的優惠券頁面查看</div>
+            <div class="confirmbtn">
+                <div class="cbtnstyle confirmcex fz-1">我的優惠券</div>
+                <div class="cbtnstyle cancelcex fz-1">關閉頁面</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="confirmbgeFail">
+        <div class="confirmCp confirmCpex">
+            <div class="confirmtitle fz-3">兌換失敗</div>
+            <div class="confirmtext fz-1">請確認仙女足夠或是網路連線正常</div>
+            <div class="confirmbtn">
+                <div class="cbtnstyle btnfailStyle cancelcex fz-1 ">關閉頁面</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-newspage"></div>
+
+    <script>
+
+        // 取得網址參數 or localstorage參數
+        let sid = getQueryString("sid");
+        let uname = window.localStorage.getItem("user_id")
+        let uid = window.localStorage.getItem("uid")
+        let cpid = getQueryString("cpid");
+        let storeid = "";
+        let storename = "";
+
+        $(document).ready(function () {
+
+            // 分店資訊
+            let branchshop = null;
+            // 縣市地區選擇
+            let citycode = ""
+            let towncode = ""
+
+
+            // 初始: 所有分店
+            $.get("./ajax_php/shang_ajax/StoreList.php", function (data) {
+                data = JSON.parse(data)
+                console.log(data)
+
+                branchshop = data
+
+                data.forEach((item, index) => {
+                    $(".shopzone").append(
+                        `<div class="shopbox">
+                            <div class="leftside">
+                                <h3 class="storetitle">${item.store_name}</h3>
+                                <div class="loc">
+                                    <div class="locicon">
+                                        <img src="https://storage.googleapis.com/arsys/2021/09/bt_user_service.png" alt="icon">
+                                    </div>
+                                    <div class="addr">${item.address}</div>
+                                </div>
+                            </div>
+
+                            <div class="rightside usebtn" data-sid=${item.store_id}>
+                                <div class="selectbtn">
+                                    選擇
+                                </div>
+                            </div>
+                        </div>`
+                    )
+                });
+                usebtn();
+            })
+
+            // 縣市select
+            $.get("./ajax_php/shang_ajax/Region.php", function (data) {
+                data = JSON.parse(data)
+                // console.log(data)
+
+                data.forEach((item, index) => {
+                    $(".selectCity").append(
+                        `<option value=${item.region_id}>${item.name}</option>`
+                    )
+                })
+            })
+
+            // 點擊縣市
+            $(".selectCity").change(function () {
+                $(".selectTownship").html("")
+                $(".selectTownship").append(`<option value="" disabled selected>選擇地區</option>`)
+                citycode = ""
+                citycode = $(".selectCity").val();
+
+                $.post("./ajax_php/shang_ajax/Destrict.php", {
+                    "city": citycode,
+                }, function (data) {
+                    data = JSON.parse(data)
+                    // console.log(data)
+
+                    data.forEach((item, index) => {
+                        $(".selectTownship").append(
+                            `<option value=${item.destrict}>${item.name}</option>`
+                        )
+                    })
+                })
+
+                // 過濾所選縣市的分店
+                const filtershop = branchshop.filter((item, index, array) => {
+                    return item.city === citycode
+                });
+
+                // 渲染頁面
+                if (filtershop.length !== 0) {
+                    $(".shopzone").html("")
+                    filtershop.forEach((item, index) => {
+                        $(".shopzone").append(
+                            `<div class="shopbox animate__animated animate__fadeInUp">
+                                <div class="leftside">
+                                    <h3 class="storetitle">${item.store_name}</h3>
+                                    <div class="loc">
+                                        <div class="locicon">
+                                            <img src="https://storage.googleapis.com/arsys/2021/09/bt_user_service.png" alt="icon">
+                                        </div>
+                                        <div class="addr">${item.address}</div>
+                                    </div>
+                                </div>
+
+                                <div class="rightside usebtn" data-sid=${item.store_id}>
+                                    <div class="selectbtn">
+                                        選擇
+                                    </div>
+                                </div>
+                            </div>`
+                        )
+                    });
+                    usebtn();
+
+                } else {
+                    $(".shopzone").html("")
+                    $(".shopzone").append(
+                        `<div class="shopbox">
+                                <div class="leftside shopnone">
+                                    <h3>此地區目前沒有店家</h3>
+                                </div>
+                        </div>`
+                    )
+                }
+            })
+
+            // 點擊地區
+            $(".selectTownship").change(function () {
+                towncode = ""
+                towncode = $(".selectTownship").val();
+
+                // 過濾所選地區的分店
+                const filtertown = branchshop.filter((item, index, array) => {
+                    return item.destrict === towncode
+                });
+
+                // 渲染頁面
+                if (filtertown.length !== 0) {
+                    $(".shopzone").html("")
+                    filtertown.forEach((item, index) => {
+                        $(".shopzone").append(
+                            `<div class="shopbox animate__animated animate__fadeInUp">
+                                <div class="leftside">
+                                    <h3 class="storetitle">${item.store_name}</h3>
+                                    <div class="loc">
+                                        <div class="locicon ">
+                                            <img src="https://storage.googleapis.com/arsys/2021/09/bt_user_service.png" alt="icon">
+                                        </div>
+                                        <div class="addr">${item.address}</div>
+                                    </div>
+                                </div>
+
+                                <div class="rightside usebtn" data-sid=${item.store_id}>
+                                    <div class="selectbtn">
+                                        選擇
+                                    </div>
+                                </div>
+                            </div>`
+                        )
+                    });
+                    usebtn();
+
+                } else {
+                    $(".shopzone").html("")
+                    $(".shopzone").append(
+                        `<div class="shopbox">
+                                <div class="leftside shopnone">
+                                    <h3>此地區目前沒有店家</h3>
+                                </div>
+                        </div>`
+                    )
+                }
+            })
+
+            // 兌換優惠券popup裡的資料替換
+            switch (cpid) {
+                case "42":
+                    $(".cpimg>img").attr("src", "https://storage.googleapis.com/arsys/sys/MerchantImg/store_coupon/20211229/1c606c3bd7420869baa2a59986c014e1.png")
+                    $(".exctitle").html("五元折價券乙張")
+                    cpname = $(".exctitle").html()
+                    $(".fairyimg>img").attr("src", "https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png")
+                    break;
+                case "43":
+                    $(".cpimg>img").attr("src", "https://storage.googleapis.com/arsys/sys/ads/20220104/a2b10776c684b0e6230148bdf3088cdc.jpg")
+                    $(".exctitle").html("十元折價券乙張")
+                    cpname = $(".exctitle").html()
+                    $(".fairyimg>img").attr("src", "https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png")
+                    break;
+                case "44":
+                    $(".cpimg>img").attr("src", "https://storage.googleapis.com/arsys/sys/ads/20220104/a2b10776c684b0e6230148bdf3088cdc.jpg")
+                    $(".exctitle").html("上宇林訂製口罩乙盒")
+                    cpname = $(".exctitle").html()
+                    $(".fairyimg>img").attr("src", "https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png")
+                    break;
+                case "45":
+                    $(".cpimg>img").attr("src", "https://storage.googleapis.com/arsys/sys/ads/20220104/a2b10776c684b0e6230148bdf3088cdc.jpg")
+                    $(".exctitle").html("上宇林訂製隨身杯乙支")
+                    cpname = $(".exctitle").html()
+                    $(".fairyimg>img").attr("src", "https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png")
+                    break;
+                case "46":
+                    $(".cpimg>img").attr("src", "https://storage.googleapis.com/arsys/sys/ads/20220104/a2b10776c684b0e6230148bdf3088cdc.jpg")
+                    $(".exctitle").html("5000元獎金")
+                    cpname = $(".exctitle").html()
+                    $(".fairyimg>img").attr("src", "https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png")
+                    break;
+                case "47":
+                    $(".cpimg>img").attr("src", "https://storage.googleapis.com/arsys/sys/ads/20220104/a2b10776c684b0e6230148bdf3088cdc.jpg")
+                    $(".exctitle").html("IPHONE13 乙支")
+                    cpname = $(".exctitle").html()
+                    $(".fairyimg>img").attr("src", "https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png")
+                    break;
+                default:
+                    break;
+            }
+
+            function usebtn() {
+                // 兌換優惠券按鈕
+                $(".usebtn").click(function () {
+                    storeid = $(this).data("sid")
+                    storename = $(this).parent().find(".storetitle").html()
+                    // console.log(storename)
+                    $(".confirmbg").show();
+                })
+
+                // 兌換取消
+                $(".cancelc").click(() => {
+                    $(".confirmbg").hide();
+                });
+
+                // 確認兌換
+                $(".confirmc").click(() => {
+
+                    if (cpid === "42" || cpid === "43") {
+                        $.post("./ajax_php/shang_ajax/ExchangeCoupon.php", {
+                            "coupon_id": cpid,
+                            "store_id": storeid,
+                            "user_id": uid
+                        }, (data) => {
+                            data = JSON.parse(data)
+                            // console.log(data)
+
+                            if (data === "1") {
+                                $(".confirmbg").hide();
+                                $(".confirmbgex").show();
+                                // $(".usebtn").html("兌換完成");
+                                // $(".usebtn").css("background-color","#989898");
+                            } else if (data === "0") {
+                                $(".confirmbg").hide();
+                                $(".confirmbgeFail").show();
+                            }
+                        })
+                        $(".confirmbg").hide();
+                        $(".confirmbgex").show();
+                    } else {
+                        openIframe(`shang_iform.html?cpid=${cpid}&bsid=${storeid}&bsname=${storename}`)
+                    }
+
+                })
+
+                // 兌換完成我的優惠券
+                $(".confirmcex").click(() => {
+                    $(".confirmbgex").hide();
+                    $(".confirmbgeFail").hide();
+                    openIframe('shang_coupon_backtoppage.html')
+                })
+
+                // 兌換完成關閉
+                $(".cancelcex").click(() => {
+                    $(".confirmbgex").hide();
+                    $(".confirmbgeFail").hide();
+                })
+            }
+
+
+        })
+
+        // 開新iframe
+        function openIframe(url) {
+            var iframeEle = $(
+                '<iframe  frameborder="0" width="100%" height="100%" scrolling="auto"></iframe>'
+            );
+            var theToday =
+                new Date().getFullYear().toString() +
+                (new Date().getMonth() + 1).toString() +
+                new Date().getDate().toString();
+            if (url.match(/\?{1}/)) {
+                url += "&u=" + theToday;
+            } else {
+                url += "?u=" + theToday;
+            }
+            iframeEle.attr("src", url);
+            var boxIframe = $(".box-newspage");
+            boxIframe.addClass("box-newspage-open");
+            boxIframe.removeClass("box-newspage-close");
+            boxIframe.append(iframeEle);
+        }
+
+        // 關閉iframe
+        window.closeParentPopup = function () {
+
+            var boxIframe = $(".box-newspage");
+            boxIframe.removeClass("box-newspage-open");
+            boxIframe.addClass("box-newspage-close");
+            boxIframe.empty();
+
+            var adp = window.localStorage.getItem("adp_index");
+            var adp_array = JSON.parse(adp);
+            adp_array.pop();
+
+            var temp_adp = JSON.stringify(adp_array);
+
+            window.localStorage.setItem("adp_index", temp_adp);
+        };
+
+        // 取得網址參數
+        function getQueryString(paramName) {
+            paramName = paramName
+                .replace(/[\[]/, "\\\[")
+                .replace(/[\]]/, "\\\]")
+                .toLowerCase();
+            var reg = "[\\?&]" + paramName + "=([^&#]*)";
+            var regex = new RegExp(reg);
+            var regResults = regex.exec(window.location.href.toLowerCase());
+            if (regResults == null) return "";
+            else return regResults[1];
+        }
+
+        function add_page() {
+            var adp = window.localStorage.getItem("adp_index");
+            var adp_array = JSON.parse(adp);
+            var temp_page_name = "shang_menu.html";
+
+            temp_pageof = parseInt(adp_array.indexOf(temp_page_name));
+
+            if (temp_pageof < 0) {
+                adp_array.push(temp_page_name);
+            } else {
+                if (adp_array.length != temp_pageof + 1) {
+                    openIframe("./view/" + adp_array[temp_pageof + 1]);
+                }
+            }
+            var temp_adp = JSON.stringify(adp_array);
+
+            window.localStorage.setItem("adp_index", temp_adp);
+        }
+
+        pushHistory();
+
+        window.addEventListener(
+            "popstate",
+            function (e) {
+                window.parent.closeParentPopup();
+                pushHistory();
+            },
+            false
+        );
+
+        function pushHistory() {
+            var state = {
+                title: "title",
+                url: "#",
+            };
+            window.history.pushState(state, "title", "#");
+        }
+    </script>
+
+</body>
+
+</html>

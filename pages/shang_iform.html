@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html;" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0, target-densityDpi=low-dpi" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href="./include/css/swiper.min.css" />
+    <link rel="stylesheet" href="./include/css/mobanbus_mviedov2_st.css" />
+    <link rel="stylesheet" href="./include/css/mobanbus.min.css" />
+    <link rel="stylesheet" href="./include/css/index.css" />
+    <link rel="stylesheet" href="./include/css/myindex.css" />
+
+    <script src="./include/js/jquery-3.2.1.min.js"></script>
+    <script src="./include/js/swiper.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <style>
+        :root {
+            --font-size-0: 14px;
+            --font-size-1: 16px;
+            --font-size-2: 18px;
+            --font-size-3: 22px;
+            --font-size-4: 26px;
+            --font-size-5: 24px;
+
+            --margin-bottom-0: 5px;
+            --margin-bottom-1: 15px;
+            --margin-bottom-2: 20px;
+            --margin-bottom-3: 25px;
+
+            --color-0: #ECCCAC;
+        }
+
+        .fz-0 {
+            font-size: var(--font-size-0);
+        }
+
+        .fz-1 {
+            font-size: var(--font-size-1);
+        }
+
+        .fz-2 {
+            font-size: var(--font-size-2);
+        }
+
+        .fz-3 {
+            font-size: var(--font-size-3);
+        }
+
+        .fz-4 {
+            font-size: var(--font-size-4);
+        }
+
+        .fz-5 {
+            font-size: var(--font-size-5);
+        }
+
+        .color-0 {
+            color: var(--color-0)
+        }
+
+        .mb-0 {
+            margin-bottom: var(--margin-bottom-0);
+        }
+
+        .mt-2 {
+            margin-top: 20px;
+        }
+
+
+        /* global */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: scroll;
+        }
+
+        .mobanbus_header {
+            /* position: fixed; */
+            background: #906437;
+            height: 60px;
+        }
+
+        .codedaddy_vback {
+            bottom: -3px;
+        }
+
+        .pro_titlea {
+            text-align: center;
+            height: 60px;
+        }
+
+        .logobox {
+            width: 150px;
+            height: 45px;
+            margin: 0 auto;
+            padding-top: 15px;
+        }
+
+        .logobox img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* content */
+        .formzone {
+            padding: 15px 25px;
+        }
+
+        /* head */
+        .formhead {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .infoimg {
+            width: 30vw;
+            height: 30vw;
+            padding: 10px;
+            border: 1px solid #B4B3B2;
+            margin: 0 15px 0 0;
+        }
+
+        .infoimg img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .infotext {
+            color: #000;
+            font-size: var(--font-size-0)
+        }
+
+        /* input */
+        .formbody {
+            margin-top: 15px;
+            height: 50vh;
+        }
+
+        .form-group input {
+            box-sizing: border-box;
+            box-shadow: none;
+            border-radius: 20px;
+            text-indent: 2px;
+        }
+
+        .btnbox {
+            padding: 20px 35px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .btnbox .btnstyle {
+            font-size: var(--font-size-1);
+            padding: 6px 43px;
+            color: #000;
+            border-radius: 30px;
+            border: 1px solid #ECCCAC;
+        }
+
+        .btnbox .submitbtn {
+            background: #ECCCAC;
+        }
+
+        /* confirmbtn */
+        .confirmbg,
+        .confirmbgex,
+        .confirmbgeFail {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+
+        .confirmCp {
+            width: 70vw;
+            /* height: 50vw; */
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            /* font-weight: bold; */
+            color: black !important;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .cpimg {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 20px;
+            border: 1px solid #B4B3B2;
+        }
+
+        .cpimg img {
+            width: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .confirmtitle {
+            letter-spacing: 1px;
+        }
+
+        .confirmbtn {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .cbtnstyle {
+            padding: 8px;
+            border: 2px solid var(--color-0);
+            border-radius: 20px;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .confirmc,
+        .confirmcex {
+            margin-right: 10px;
+            background: var(--color-0);
+        }
+
+        .confirmCpex {
+            text-align: center;
+        }
+
+        .btnfailStyle {
+            width: 50%;
+            background: var(--color-0);
+            flex-grow: 0;
+            margin: 0 auto;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div>
+        <header class="mobanbus_header">
+            <div class="bus_nav">
+                <div class="codedaddy_vback">
+                    <a class="" onclick="window.parent.closeParentPopup();"><img
+                            src="./include/template/mobanbus_mviedov2/mviedov2_st/img/bt_inside_back.png" /></a>
+                </div>
+                <div class="pro_titlea">
+                    <div class="logobox">
+                        <img src="https://storage.googleapis.com/arsys/2021/08/arindex_scan_01.png" alt="logo">
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <div class="formzone">
+        <div class="formhead">
+            <div class="infoimg">
+                <img src="https://storage.googleapis.com/mytkmedia/Weeshop/img/stamp/test02.png" alt="infoimg">
+            </div>
+            <div class="infotext">
+                <div class="infotitle mb-0">IPHONE 13</div>
+                <div class="spec mb-0">規格 : <span>隨機</span></div>
+                <div class="count mb-0">數量 : <span>1</span></div>
+                <div class="whereshop">領取分店 : <span>上雨林台南海哀店</span></div>
+            </div>
+        </div>
+        <hr />
+        <div class="formbody">
+            <div class="w100m mt-2">
+                <div class="w100m fz-0 mb-0">領取人真實姓名</div>
+                <div class="form-group mb10 form-group">
+                    <input type="text" class="inputES w100m p5 em12 t_l m_auto" id="name_on_card">
+                </div>
+
+                <div class="w100m fz-0 mb-0">領取人身分證</div>
+                <div class="form-group mb10 form-group">
+                    <input type="text" class="inputES w100m p5 em12 t_l m_auto" id="name_on_card">
+                </div>
+
+                <div class="w100m fz-0 mb-0">領取人手機</div>
+                <div class="form-group mb10 form-group">
+                    <input type="number" class="inputES w100m p5 em12 t_l m_auto" id="cphone">
+                </div>
+
+                <div class="w100m fz-0 mb-0">領取人信箱</div>
+                <div class="form-group mb10 form-group">
+                    <input type="email" class="inputES w100m p5 em12 t_l m_auto" id="cphone">
+                </div>
+            </div>
+        </div>
+        <div class="formbtn">
+            <p class="fz-0">*領取當天請務必出示可以證明身分之證件,否則不予領取</p>
+            <div class="btnbox mt-2">
+                <div class="btnstyle submitbtn">確認</div>
+                <div class="btnstyle cancel" onclick="window.parent.closeParentPopup();">取消</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- popup -->
+    <div class="confirmbg animate__animated animate__fadeIn">
+        <div class="confirmCp">
+            <div class="cpimg">
+                <img src="https://storage.googleapis.com/arsys/sysdemo/MerchantImg/store_coupon/20211013/27132681d3f22649da88da7fd8ddd01f.jpg"
+                    alt="cpimg">
+            </div>
+            <div class="confirmtitle fz-2 mb-2">是否要使用下列仙女兌換 : </div>
+            <div class="confirmbtn">
+                <div class="cbtnstyle confirmc fz-1">確定</div>
+                <div class="cbtnstyle cancelc fz-1">取消</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="confirmbgex">
+        <div class="confirmCp confirmCpex">
+            <div class="cpimg">
+                <img src="https://storage.googleapis.com/arsys/sysdemo/MerchantImg/store_coupon/20211013/27132681d3f22649da88da7fd8ddd01f.jpg"
+                    alt="cpimg">
+            </div>
+            <div class="confirmtext fz-1">請至我的優惠券頁面查看</div>
+            <div class="confirmbtn">
+                <div class="cbtnstyle confirmcex fz-1">兌換紀錄</div>
+                <!-- <div class="cbtnstyle cancelcex fz-1">關閉頁面</div> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="confirmbgeFail">
+        <div class="confirmCp confirmCpex">
+            <div class="confirmtitle fz-3">兌換失敗</div>
+            <div class="confirmtext fz-1">請確認仙女足夠或是網路連線正常</div>
+            <div class="confirmbtn">
+                <div class="cbtnstyle btnfailStyle cancelcex fz-1 ">關閉頁面</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box-newspage"></div>
+
+    <script>
+
+        // 取得網址參數 or localstorage參數
+        let bsid = getQueryString("bsid");
+        let cpid = getQueryString("cpid");
+        let bsname = getQueryString("bsname");
+        bsname = decodeURI(bsname)
+
+        console.log(bsid)
+        console.log(cpid)
+        console.log(bsname)
+
+        let uname = window.localStorage.getItem("user_id")
+        let uid = window.localStorage.getItem("uid")
+
+        switch (cpid) {
+            case "44":
+                $(".infoimg>img").attr("src", "https://storage.googleapis.com/arsys/sys/ads/20220104/a2b10776c684b0e6230148bdf3088cdc.jpg")
+                $(".infotitle").html("上宇林訂製口罩 乙盒")
+                $(".whereshop>span").html(`${bsname}`)
+                break;
+            case "45":
+                $(".infoimg>img").attr("src", "https://storage.googleapis.com/arsys/sys/ads/20220104/a2b10776c684b0e6230148bdf3088cdc.jpg")
+                $(".infotitle").html("上宇林訂製隨身杯 乙支")
+                $(".whereshop>span").html(`${bsname}`)
+                break;
+            case "46":
+                $(".infoimg>img").attr("src", "https://storage.googleapis.com/arsys/sys/ads/20220104/a2b10776c684b0e6230148bdf3088cdc.jpg")
+                $(".infotitle").html("5000元獎金")
+                $(".whereshop>span").html(`${bsname}`)
+                break;
+            case "47":
+                $(".infoimg>img").attr("src", "https://storage.googleapis.com/arsys/sys/ads/20220104/a2b10776c684b0e6230148bdf3088cdc.jpg")
+                $(".infotitle").html("IPHONE13 乙支")
+                $(".whereshop>span").html(`${bsname}`)
+                break;
+            default:
+                break;
+        }
+
+        $(document).ready(function () {
+
+            usebtn();
+            function usebtn() {
+                // 兌換優惠券按鈕
+                $(".submitbtn").click(function () {
+                    // storeid = $(this).data("sid")
+                    // storename = $(this).parent().find(".storetitle").html()
+                    // console.log(storename)
+                    $(".confirmbg").show();
+                })
+
+                // 兌換取消
+                $(".cancelc").click(() => {
+                    $(".confirmbg").hide();
+                });
+
+                // 確認兌換
+                $(".confirmc").click(() => {
+                    console.log("aaa")
+                    // if (cpid === "42" || cpid === "43") {
+                    //     $.post("./ajax_php/shang_ajax/ExchangeCoupon.php", {
+                    //         "coupon_id": cpid,
+                    //         "store_id": storeid,
+                    //         "user_id": uid
+                    //     }, (data) => {
+                    //         data = JSON.parse(data)
+                    //         // console.log(data)
+
+                    //         if (data === "1") {
+                    //             $(".confirmbg").hide();
+                    //             $(".confirmbgex").show();
+                    //             // $(".usebtn").html("兌換完成");
+                    //             // $(".usebtn").css("background-color","#989898");
+                    //         } else if (data === "0") {
+                    //             $(".confirmbg").hide();
+                    //             $(".confirmbgeFail").show();
+                    //         }
+                    //     })
+                        $(".confirmbg").hide();
+                        $(".confirmbgex").show();
+                    // } else {
+                    //     openIframe(`shang_iform.html?cpid=${cpid}&bsid=${storeid}&bsname=${storename}`)
+                    // }
+
+                })
+
+                // 兌換完成兌換紀錄
+                $(".confirmcex").click(() => {
+                    $(".confirmbgex").hide();
+                    $(".confirmbgeFail").hide();
+                    openIframe('shang_record_backtoppage.html')
+                })
+
+                // 兌換完成關閉
+                // $(".cancelcex").click(() => {
+                //     $(".confirmbgex").hide();
+                //     $(".confirmbgeFail").hide();
+                // })
+            }
+
+        })
+
+        // 開新iframe
+        function openIframe(url) {
+            var iframeEle = $(
+                '<iframe  frameborder="0" width="100%" height="100%" scrolling="auto"></iframe>'
+            );
+            var theToday =
+                new Date().getFullYear().toString() +
+                (new Date().getMonth() + 1).toString() +
+                new Date().getDate().toString();
+            if (url.match(/\?{1}/)) {
+                url += "&u=" + theToday;
+            } else {
+                url += "?u=" + theToday;
+            }
+            iframeEle.attr("src", url);
+            var boxIframe = $(".box-newspage");
+            boxIframe.addClass("box-newspage-open");
+            boxIframe.removeClass("box-newspage-close");
+            boxIframe.append(iframeEle);
+        }
+
+        // 關閉iframe
+        window.closeParentPopup = function () {
+
+            var boxIframe = $(".box-newspage");
+            boxIframe.removeClass("box-newspage-open");
+            boxIframe.addClass("box-newspage-close");
+            boxIframe.empty();
+
+            var adp = window.localStorage.getItem("adp_index");
+            var adp_array = JSON.parse(adp);
+            adp_array.pop();
+
+            var temp_adp = JSON.stringify(adp_array);
+
+            window.localStorage.setItem("adp_index", temp_adp);
+        };
+
+        // 取得網址參數
+        function getQueryString(paramName) {
+            paramName = paramName
+                .replace(/[\[]/, "\\\[")
+                .replace(/[\]]/, "\\\]")
+                .toLowerCase();
+            var reg = "[\\?&]" + paramName + "=([^&#]*)";
+            var regex = new RegExp(reg);
+            var regResults = regex.exec(window.location.href.toLowerCase());
+            if (regResults == null) return "";
+            else return regResults[1];
+        }
+
+        function add_page() {
+            var adp = window.localStorage.getItem("adp_index");
+            var adp_array = JSON.parse(adp);
+            var temp_page_name = "shang_menu.html";
+
+            temp_pageof = parseInt(adp_array.indexOf(temp_page_name));
+
+            if (temp_pageof < 0) {
+                adp_array.push(temp_page_name);
+            } else {
+                if (adp_array.length != temp_pageof + 1) {
+                    openIframe("./view/" + adp_array[temp_pageof + 1]);
+                }
+            }
+            var temp_adp = JSON.stringify(adp_array);
+
+            window.localStorage.setItem("adp_index", temp_adp);
+        }
+
+        pushHistory();
+
+        window.addEventListener(
+            "popstate",
+            function (e) {
+                window.parent.closeParentPopup();
+                pushHistory();
+            },
+            false
+        );
+
+        function pushHistory() {
+            var state = {
+                title: "title",
+                url: "#",
+            };
+            window.history.pushState(state, "title", "#");
+        }
+    </script>
+
+</body>
+
+</html>

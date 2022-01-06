@@ -25,7 +25,7 @@
         <header class="mobanbus_header">
             <div class="bus_nav">
                 <div class="codedaddy_vback">
-                    <a class="" onclick="returnToUser();"><img
+                    <a class="" onclick="window.top.closeParentPopup();"><img
                             src="./include/template/mobanbus_mviedov2/mviedov2_st/img/bt_inside_back.png" /></a>
                 </div>
                 <div class="pro_title_vip">兌換紀錄</div>
@@ -78,15 +78,13 @@
                 "user_id" : uid
             },(data)=>{
                 data = JSON.parse(data)
-                console.log(data)
+                // console.log(data)
 
                 if(data.length){
                     data.forEach((item, index) => {
-                        // if(Number(item.dot) > 0){
-                            
-                        // }else{
-
-                        // }
+                        if(Number(item.dot) > 0){
+                            item.dot = "+" + item.dot
+                        }
                         $(".stamprecord").append(
                             ` <div class="record">
                                 <div class="recordbox">

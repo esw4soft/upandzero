@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html;" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0, target-densityDpi=low-dpi" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="stylesheet" href="./include/css/swiper.min.css" />
+    <link rel="stylesheet" href="./include/css/mobanbus_mviedov2_st.css" />
+    <link rel="stylesheet" href="./include/css/mobanbus.min.css" />
+    <link rel="stylesheet" href="./include/css/index.css" />
+    <link rel="stylesheet" href="./include/css/myindex.css" />
+    <link rel="stylesheet" href="./include/css/shang_css/couponbox.css" />
+
+    <script src="./include/js/jquery-3.2.1.min.js"></script>
+    <script src="./include/js/swiper.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <!-- Mobanbus_cn header start -->
+        <header class="mobanbus_header">
+            <div class="bus_nav">
+                <div class="codedaddy_vback">
+                    <a class="" onclick="window.top.closeParentPopup();"><img
+                            src="./include/template/mobanbus_mviedov2/mviedov2_st/img/bt_inside_back.png" /></a>
+                </div>
+                <div class="pro_title_vip">我的優惠券</div>
+            </div>
+        </header>
+        <!-- Mobanbus_cn header end -->
+        <!-- <header class="PVpage m_auto">
+            <div class="store_t em15 p5 m_auto floatl t_c highlight" style="width: calc(50% - 10px)">
+                門市(<span id="store_num">0</span>)
+            </div>
+            <div class="prod_t em15 p5 m_auto floatl t_c" style="width: calc(50% - 10px)">
+                線上(<span id="prod_num">0</span>)
+            </div>
+            <div class="clearb"></div>
+        </header> -->
+    </div>
+
+    <div class="ifused">
+        <div class="ifusedStyle nonused active">可使用</div>
+        <div class="ifusedStyle used">已使用或過期</div>
+    </div>
+    <div class="couponbox">
+        <div class="storebox">
+            <!-- <div class="storeimg">
+                <img src="./include/img/avatar_boy.png" alt="storeimg">
+            </div>
+            <h2 class="storetitle">香腸博物館</h2> -->
+        </div>
+        <div class="storecoupon">
+            <!-- <div class="cardcontent" onclick="openIframe('coupon_page.html')">
+                <div class="coupondet">
+                    <div class="couponimg">
+                        <img src="./include/img/AR_banner.png" alt="couponimg">
+                    </div>
+                    <div class="coupontextbox">
+                        <div class="coupontype">折扣</div>
+                        <div class="coupontext">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores,
+                            tenetur?</div>
+                        <p class="coupondate mt-0">剩餘30天</p>
+                        <p class="coupondate">2021-05-26 ~ 2021-05-31</p>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+
+        <!-- <div class="storebox">
+            <div class="storeimg">
+                <img src="./include/img/avatar_boy.png" alt="storeimg">
+            </div>
+            <h2 class="storetitle">香腸博物館</h2>
+        </div>
+        <div class="storecoupon">
+            <div class="cardcontent">
+                <div class="coupondet">
+                    <div class="couponimg couponimgBlack">
+                        <img src="./include/img/AR_banner.png" alt="couponimg">
+                        <div class="usedBlacK">已使用</div>
+                    </div>
+                    <div class="coupontextbox">
+                        <div class="coupontype coupontypeBlack">折扣</div>
+                        <div class="coupontext">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                            Asperiores, tenetur?</div>
+                        <p class="coupondate coupondateBlack">已於2021-05-26過期</p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    <!-- <div class="Notice">注意事項</div> -->
+
+    <div class="box-newspage"></div>
+    <script>
+        let uname = window.localStorage.getItem("user_id")
+        $(document).ready(function () {
+
+            // 初始資料
+            $.post("./ajax_php/coupon/CouponList.php", {
+                    account: uname
+                },
+                (data) => {
+                    data = JSON.parse(data)
+                    // console.log(data)
+                    // $(".couponbox").html("");
+
+                    if (data.length == 0) {
+                        $(".couponbox").html("");
+                        $(".couponbox").append(`
+                                <div class="havetcoup">
+                                    <img src="https://storage.googleapis.com/arsys/2021/09/nocoupon00.png" alt="havetcoup">
+                                    <div class="havetcoupText">目前尚無優惠券</div>
+                                </div>
+                                
+                            `)
+                    } else {
+                        // TODO 每個商店只留一個
+                        $(".couponbox").html("");
+
+                        let setrepeat = new Set()
+                        let filterrepeat = data.filter(item => !setrepeat.has(item.store_id) ? setrepeat
+                            .add(
+                                item.store_id) : false)
+                        // console.log(filterrepeat)
+
+                        // 使用兩個陣列 一個給全域用 一個給foreach用
+                        // 會分開的原因是因為foreach裡的陣列要歸零 不然會重複渲染
+                        // 但全域的陣列不能歸零因為要判斷整體是否有length
+                        // 如果有更好的方法就直接改
+                        let filterUsedCoupon = [];
+                        let filterUsedCouponout = [];
+                        filterrepeat.forEach(function (item, index) {
+
+                            // foreach清空陣列
+                            filterUsedCoupon = [];
+
+                            // 過濾出屬於每個商店的全部影片
+                            let filterStoreCoupon = data.filter((coupondata) => {
+                                return coupondata.store_id == item.store_id
+                            })
+                            // console.log(filterStoreCoupon)
+
+                            // 類型不一樣分開做處理,因為畫面不一樣
+                            for (let i = 0; i < filterStoreCoupon.length; i++) {
+                                if (filterStoreCoupon[i].notice == "3" || filterStoreCoupon[i]
+                                    .notice == "2") {
+                                    filterUsedCoupon.push(filterStoreCoupon[i])
+                                    filterUsedCouponout.push(filterStoreCoupon[i])
+                                }
+                            }
+                            console.log(filterUsedCoupon)
+
+                            // 如果有資料做渲染畫面
+                            if (filterUsedCoupon.length != 0) {
+                                $(".couponbox").append(`
+                                    <div class="storebox">
+                                        <div class="storeimg">
+                                            <img src=${item.shop_img_1x1} alt="storeimg">
+                                        </div>
+                                        <h2 class="storetitle">${item.store_name}</h2>
+                                    </div>
+                                    <div>每日可使用次數: ${item.count}次</div>
+                                    <div class="storecoupon storecoupon${index}"></div>
+                                `)
+
+                                filterUsedCoupon.forEach(function (couponitem) {
+                                    if (couponitem.notice === "3" && couponitem.type2 === "0") {
+                                        $(".storecoupon" + index).append(`
+                                            <div class="cardcontent" onclick="openIframe('shang_couponpage.html?cpid=${couponitem.id}&sid=${couponitem.store_id}')">
+                                                <div class="coupondet">
+                                                    <div class="couponimg">
+                                                        <img src=${couponitem.img}>
+                                                    </div>
+                                                    <div class="coupontextbox">
+                                                        <div class="coupontype">${couponitem.type}</div>
+                                                        <div class="coupontext">${couponitem.title}</div>
+                                                        <p class="coupondate">剩餘 ${couponitem.day}天</p>
+                                                        <p class="coupondate">${couponitem.start_date} ~ ${couponitem.end_date}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        `)
+                                    } else if(couponitem.notice === "3" && couponitem.type2 === "1"){
+                                        $(".storecoupon" + index).append(`
+                                            <div class="cardcontent" onclick="openIframe('shang_couponpage.html?cpid=${couponitem.id}&sid=${couponitem.store_id}')">
+                                                <div class="coupondet">
+                                                    <div class="couponimg">
+                                                        <img src=${couponitem.img}>
+                                                    </div>
+                                                    <div class="coupontextbox">
+                                                        <div class="coupontype">${couponitem.type}</div>
+                                                        <div class="coupontext">${couponitem.title}</div>
+                                                        <p class="coupondate">剩餘 ${couponitem.day}天</p>
+                                                        <p class="coupondate">兌換取得的優惠券</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        `)
+                                    } else if (couponitem.notice === "2") {
+                                        $(".storecoupon" + index).append(`
+                                            <div class="cardcontent">
+                                                <div class="coupondet">
+                                                    <div class="couponimg couponimgBlack">
+                                                        <img src=${couponitem.img} alt="couponimg">
+                                                        <div class="usedBlacK">未開放</div>
+                                                    </div>
+                                                    <div class="coupontextbox">
+                                                        <div class="coupontype coupontypeBlack">${couponitem.type}</div>
+                                                        <div class="coupontext">${couponitem.title}</div>
+                                                        <p class="coupondate">將於 ${couponitem.day}天後開啟</p>
+                                                        <p class="coupondate coupondateBlack">於${couponitem.start_date}開放</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        `)
+                                    }
+                                })
+                            }
+                        })
+
+                        // 沒有資料放預設畫面,放在foreach外面避免重複渲染
+                        // console.log(filterUsedCoupon)
+                        if (filterUsedCouponout.length == 0) {
+                            $(".couponbox").html("");
+                            $(".couponbox").append(`
+                                        <div class="havetcoup">
+                                            <img src="https://storage.googleapis.com/arsys/2021/09/nocoupon00.png" alt="havetcoup">
+                                            <div class="havetcoupText">目前尚無優惠券</div>
+                                        </div>
+                                    `)
+                        }
+                    }
+                }
+            )
+
+            // 已使用或過期按鈕點擊
+            $(".used").click(() => {
+                $(".nonused").removeClass("active");
+                $(".used").addClass("active");
+                // $(".blackver").show();
+                $.post("./ajax_php/coupon/CouponList.php", {
+                        account: uname
+                    },
+                    (data) => {
+                        data = JSON.parse(data)
+                        console.log(data)
+                        // $(".couponbox").html("");
+
+                        if (data.length == 0) {
+                            $(".couponbox").html("");
+                            $(".couponbox").append(`
+                                <div class="havetcoup">
+                                    <img src="https://storage.googleapis.com/arsys/2021/09/nocoupon00.png" alt="havetcoup">
+                                    <div class="havetcoupText">目前尚無過期優惠券</div>
+                                </div>
+                                
+                            `)
+                        } else {
+                            // TODO 每個商店只留一個
+                            $(".couponbox").html("");
+
+                            let setrepeat = new Set()
+                            let filterrepeat = data.filter(item => !setrepeat.has(item.store_id) ?
+                                setrepeat.add(item.store_id) : false)
+                            // console.log(filterrepeat)
+
+                            let filterUsedCoupon = [];
+                            let filterUsedCouponout = [];
+
+                            filterrepeat.forEach(function (item, index) {
+
+                                filterUsedCoupon = [];
+
+                                // 過濾出屬於每個商店的全部影片
+                                let filterStoreCoupon = data.filter((coupondata) => {
+                                    return coupondata.store_id == item.store_id
+                                })
+
+                                // console.log(filterStoreCoupon)
+
+                                // 類型不一樣加入提示
+                                for (let i = 0; i < filterStoreCoupon.length; i++) {
+                                    if (filterStoreCoupon[i].notice == "0") {
+                                        filterStoreCoupon[i].noticechin = "未使用"
+                                        filterUsedCoupon.push(filterStoreCoupon[i])
+                                        filterUsedCouponout.push(filterStoreCoupon[i])
+                                    } else if (filterStoreCoupon[i].notice == "1") {
+                                        filterStoreCoupon[i].noticechin = "已使用"
+                                        filterUsedCoupon.push(filterStoreCoupon[i])
+                                        filterUsedCouponout.push(filterStoreCoupon[i])
+                                    } else {
+                                        continue;
+                                    }
+                                }
+                                // console.log(filterUsedCoupon)
+
+                                if (filterUsedCoupon.length != 0) {
+                                    $(".couponbox").append(`
+                                    <div class="storebox">
+                                        <div class="storeimg">
+                                            <img src=${item.shop_img_1x1} alt="storeimg">
+                                        </div>
+                                        <h2 class="storetitle">${item.store_name}</h2>
+                                    </div>
+                                    <div class="storecoupon storecoupon${index}"></div>
+                                `)
+
+                                    filterUsedCoupon.forEach(function (couponitem) {
+                                        if(couponitem.noticechin == "已使用"){
+                                            $(".storecoupon" + index).append(`
+                                                <div class="cardcontent">
+                                                    <div class="coupondet">
+                                                        <div class="couponimg couponimgBlack">
+                                                            <img src=${couponitem.img} alt="couponimg">
+                                                            <div class="usedBlacK">${couponitem.noticechin}</div>
+                                                        </div>
+                                                        <div class="coupontextbox">
+                                                            <div class="coupontype coupontypeBlack">${couponitem.type}</div>
+                                                            <div class="coupontext">${couponitem.title}</div>
+                                                            <p class="coupondate coupondateBlack">已於${couponitem.end_date} 使用</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            `)
+                                        }else{
+                                            $(".storecoupon" + index).append(`
+                                                <div class="cardcontent">
+                                                    <div class="coupondet">
+                                                        <div class="couponimg couponimgBlack">
+                                                            <img src=${couponitem.img} alt="couponimg">
+                                                            <div class="usedBlacK">${couponitem.noticechin}</div>
+                                                        </div>
+                                                        <div class="coupontextbox">
+                                                            <div class="coupontype coupontypeBlack">${couponitem.type}</div>
+                                                            <div class="coupontext">${couponitem.title}</div>
+                                                            <p class="coupondate coupondateBlack">已於${couponitem.end_date}過期</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            `)
+                                        }
+
+                                    })
+                                }
+                            })
+
+                            if (filterUsedCouponout.length == 0) {
+                                $(".couponbox").html("");
+                                $(".couponbox").append(`
+                                        <div class="havetcoup">
+                                            <img src="https://storage.googleapis.com/arsys/2021/09/nocoupon00.png" alt="havetcoup">
+                                            <div class="havetcoupText">目前尚無優惠券</div>
+                                        </div>
+                                    `)
+                            }
+                        }
+                    }
+                )
+            })
+
+            // 可使用按鈕
+            $(".nonused").click(() => {
+                $(".used").removeClass("active");
+                $(".nonused").addClass("active");
+
+                $.post("./ajax_php/coupon/CouponList.php", {
+                        account: uname
+                    },
+                    (data) => {
+                        data = JSON.parse(data)
+                        // console.log(data)
+                        // $(".couponbox").html("");
+
+                        if (data.length == 0) {
+                            $(".couponbox").html("");
+                            $(".couponbox").append(`
+                                <div class="havetcoup">
+                                    <img src="https://storage.googleapis.com/arsys/2021/09/nocoupon00.png" alt="havetcoup">
+                                    <div class="havetcoupText">目前尚無優惠券</div>
+                                </div>
+                                
+                            `)
+                        } else {
+                            // TODO 每個商店只留一個
+                            $(".couponbox").html("");
+
+                            let setrepeat = new Set()
+                            let filterrepeat = data.filter(item => !setrepeat.has(item.store_id) ?
+                                setrepeat.add(item.store_id) : false)
+                            // console.log(filterrepeat)
+
+                            let filterUsedCoupon = [];
+                            let filterUsedCouponout = [];
+                            filterrepeat.forEach(function (item, index) {
+
+                                filterUsedCoupon = [];
+
+                                // 過濾出屬於每個商店的全部影片
+                                let filterStoreCoupon = data.filter((coupondata) => {
+                                    return coupondata.store_id == item.store_id
+                                })
+                                // console.log(filterStoreCoupon)
+
+                                for (let i = 0; i < filterStoreCoupon.length; i++) {
+                                    if (filterStoreCoupon[i].notice == "3" ||
+                                        filterStoreCoupon[i].notice == "2") {
+                                        filterUsedCoupon.push(filterStoreCoupon[i])
+                                        filterUsedCouponout.push(filterStoreCoupon[i])
+                                    }
+                                }
+                                // console.log(filterUsedCoupon)
+
+                                if (filterUsedCoupon.length != 0) {
+                                    $(".couponbox").append(`
+                                        <div class="storebox">
+                                            <div class="storeimg">
+                                                <img src=${item.shop_img_1x1} alt="storeimg">
+                                            </div>
+                                            <h2 class="storetitle">${item.store_name}</h2>
+                                        </div>
+                                        <div>每日可使用次數: ${item.count}次</div>
+                                        <div class="storecoupon storecoupon${index}"></div>
+                                    `)
+
+                                    filterUsedCoupon.forEach(function (couponitem) {
+                                        if (couponitem.notice === "3" && couponitem.type2 === "0") {
+                                            $(".storecoupon" + index).append(`
+                                                <div class="cardcontent" onclick="openIframe('shang_couponpage.html?cpid=${couponitem.id}&sid=${couponitem.store_id}')">
+                                                    <div class="coupondet">
+                                                        <div class="couponimg">
+                                                            <img src=${couponitem.img}>
+                                                        </div>
+                                                        <div class="coupontextbox">
+                                                            <div class="coupontype">${couponitem.type}</div>
+                                                            <div class="coupontext">${couponitem.title}</div>
+                                                            <p class="coupondate">剩餘 ${couponitem.day}天</p>
+                                                            <p class="coupondate">${couponitem.start_date} ~ ${couponitem.end_date}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            `)
+                                        } else if(couponitem.notice === "3" && couponitem.type2 === "1"){
+                                            $(".storecoupon" + index).append(`
+                                                <div class="cardcontent" onclick="openIframe('shang_couponpage.html?cpid=${couponitem.id}&sid=${couponitem.store_id}')">
+                                                    <div class="coupondet">
+                                                        <div class="couponimg">
+                                                            <img src=${couponitem.img}>
+                                                        </div>
+                                                        <div class="coupontextbox">
+                                                            <div class="coupontype">${couponitem.type}</div>
+                                                            <div class="coupontext">${couponitem.title}</div>
+                                                            <p class="coupondate">剩餘 ${couponitem.day}天</p>
+                                                            <p class="coupondate">兌換取得的優惠券</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            `)
+                                        } else if (couponitem.notice === "2") {
+                                            $(".storecoupon" + index).append(`
+                                                <div class="cardcontent">
+                                                    <div class="coupondet">
+                                                        <div class="couponimg couponimgBlack">
+                                                            <img src=${couponitem.img} alt="couponimg">
+                                                            <div class="usedBlacK">未開放</div>
+                                                        </div>
+                                                        <div class="coupontextbox">
+                                                            <div class="coupontype coupontypeBlack">${couponitem.type}</div>
+                                                            <div class="coupontext">${couponitem.title}</div>
+                                                            <p class="coupondate">將於 ${couponitem.day}天後開啟</p>
+                                                            <p class="coupondate coupondateBlack">於${couponitem.start_date}開放</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            `)
+                                        }
+                                    })
+                                }
+                            })
+
+                            // console.log(filterUsedCoupon)
+                            if (filterUsedCouponout.length == 0) {
+                                $(".couponbox").html("");
+                                $(".couponbox").append(`
+                                        <div class="havetcoup">
+                                            <img src="https://storage.googleapis.com/arsys/2021/09/nocoupon00.png" alt="havetcoup">
+                                            <div class="havetcoupText">目前尚無優惠券</div>
+                                        </div>
+                                    `)
+                            }
+                        }
+                    }
+                )
+            })
+
+            // add_page();
+        });
+
+        // 開新iframe
+        function openIframe(url) {
+            var iframeEle = $(
+                '<iframe  frameborder="0" width="100%" height="100%" scrolling="auto"></iframe>'
+            );
+            var theToday =
+                new Date().getFullYear().toString() +
+                (new Date().getMonth() + 1).toString() +
+                new Date().getDate().toString();
+            if (url.match(/\?{1}/)) {
+                url += "&u=" + theToday;
+            } else {
+                url += "?u=" + theToday;
+            }
+            iframeEle.attr("src", url);
+            var boxIframe = $(".box-newspage");
+            boxIframe.addClass("box-newspage-open");
+            boxIframe.removeClass("box-newspage-close");
+            boxIframe.append(iframeEle);
+        }
+
+        // 關閉iframe
+        window.closeParentPopup = function () {
+            
+            var boxIframe = $(".box-newspage");
+            // boxIframe.removeClass("box-newspage-open");
+            // boxIframe.addClass("box-newspage-close");
+            boxIframe.empty();
+
+            var adp = window.localStorage.getItem("adp_index");
+            var adp_array = JSON.parse(adp);
+            adp_array.pop();
+
+            var temp_adp = JSON.stringify(adp_array);
+
+            window.localStorage.setItem("adp_index", temp_adp);
+            window.location.reload();
+        };
+
+        function add_page() {
+            var adp = window.localStorage.getItem("adp_index");
+            var adp_array = JSON.parse(adp);
+            var temp_page_name = "shang_coupon.html";
+
+            temp_pageof = parseInt(adp_array.indexOf(temp_page_name));
+
+            if (temp_pageof < 0) {
+                adp_array.push(temp_page_name);
+            } else {
+                if (adp_array.length != temp_pageof + 1) {
+                    openIframe("./view/" + adp_array[temp_pageof + 1]);
+                }
+            }
+            var temp_adp = JSON.stringify(adp_array);
+
+            window.localStorage.setItem("adp_index", temp_adp);
+        }
+
+        pushHistory();
+
+        window.addEventListener(
+            "popstate",
+            function (e) {
+                window.parent.closeParentPopup();
+                pushHistory();
+            },
+            false
+        );
+
+        function pushHistory() {
+            var state = {
+                title: "title",
+                url: "#",
+            };
+            window.history.pushState(state, "title", "#");
+        }
+
+        // 返回會員中心葉面,會員頁內專用
+        // function returnToUser() {
+        //     let adpArray =
+        //         JSON.parse(window.localStorage.getItem("adp_index")) || [];
+
+        //     if(adpArray.length >= 4){
+        //         window.localStorage.setItem("adp_index",'["index","user_page"]');
+        //         window.top.userclick();
+        //     }else{
+        //         adpArray.length = adpArray.length - 1;
+        //         window.localStorage.setItem("adp_index", JSON.stringify(adpArray));
+        //         //window.parent.location.reload();
+        //         /*setTimeout(function() {
+        //                 window.parent.closeParentPopup();
+        //             }, 2000);*/
+        //         window.parent.closeParentPopup();
+        //     }
+
+        // }
+    </script>
+</body>
+
+</html>
